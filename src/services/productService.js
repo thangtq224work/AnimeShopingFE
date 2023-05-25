@@ -15,4 +15,16 @@ const save = (obj)=>{
 const update = (obj)=>{
     return axios.put(`/product/update`,obj);
 }
-export {getAll,getById,save,update,getAll2}
+const uploadImage = (id,images) =>{
+    console.log(id,images);
+    let data = new FormData();
+    images.map((value)=>{
+        data.append("images",value);
+    })
+    return axios.post(`/product/image-upload/${id}`,data,{
+        headers:{
+            "Content-Type":"multipart/form-data"
+        }
+    });
+}
+export {getAll,getById,save,update,getAll2,uploadImage}

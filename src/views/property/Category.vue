@@ -81,14 +81,20 @@
             </v-card-title>
 
             <v-card-text>
-                <v-container>
+                <v-form ref="form">
                     <v-row>
                         <v-col cols="12">
                             <v-text-field v-model="currentItem.name"
-                                :label="app[getcurrentLanguge()].property.category.attribute.name"></v-text-field>
+                                :label="app[getcurrentLanguge()].property.category.attribute.name" :rules="nameValidate"></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-radio-group v-model="currentItem.status" inline :rules="statusValidate">
+                                <v-radio :label="app[getcurrentLanguge()].product.status.trueVal" :value="true"></v-radio>
+                                <v-radio :label="app[getcurrentLanguge()].product.status.falseVal" :value="false"></v-radio>
+                            </v-radio-group>
                         </v-col>
                     </v-row>
-                </v-container>
+                </v-form>
             </v-card-text>
 
             <v-card-actions>
@@ -118,14 +124,29 @@ const router = useRouter();
 let pageSize = ref(3);
 let properties = ref(null);
 let formTitle = ref('');
+const form = ref(null);
 let currentItem = ref({
     id: "",
-    name: ""
+    name: "",
+    status: true
 })
 let defaultItem = {
     id: "",
-    name: ""
+    name: "",
+    status: true
 };
+const nameValidate = [
+    (value)=>{
+        if(value) return true;
+        return app[getcurrentLanguge()].validate.category.categoryNotNull;
+    }
+]
+const statusValidate = [
+  (value) => {
+    if (!!value || value == false) return true;
+    return app[getcurrentLanguge()].validate.category.statusNotNull;
+  }
+];
 const onClickHandler = (p) => {
     getData(page.value - 1, pageSize.value)
 };
@@ -159,6 +180,10 @@ const newHandler = () => {
 }
 
 const saveToDb = async () => {
+    const {valid} = await form.value.validate();
+    if(!valid){
+        return
+    } 
     if (currentItem.value.id) {
         await update(currentItem.value).then(resp => {
             if (resp.status >= 200 && resp.status < 300) {

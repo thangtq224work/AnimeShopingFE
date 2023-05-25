@@ -5,8 +5,8 @@
                 <v-icon icon="mdi-format-list-bulleted" class="btn_list ms-5" @click="toggle"></v-icon>
             </v-col>
             <v-col>
-                <v-btn id="menu-activator" color="primary">
-                    Sibling activator
+                <v-btn id="menu-activator" color="primary" variant="outlined">
+                    {{ app[getcurrentLanguge()].lang }}
                 </v-btn>
 
                 <v-menu activator="#menu-activator">
@@ -23,6 +23,8 @@
 <script setup>
 import { useCounterStore } from '@/stores/showSideBar';
 import { useRouter } from 'vue-router';
+import app from '@/i18n/dashboard';
+import getcurrentLanguge from '@/util/locale';
 const store = useCounterStore();
 const items = [
     {

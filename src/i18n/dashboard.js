@@ -1,5 +1,6 @@
 const app = {
     en: {
+        lang: "English",
         noData: "No-data",
         btn: {
             new: "New",
@@ -21,7 +22,8 @@ const app = {
                 },
                 attribute: {
                     name: "Category name",
-                    action: "Action"
+                    action: "Action",
+                    status: "Active"
                 }
             },
             material: {
@@ -36,7 +38,8 @@ const app = {
                 },
                 attribute: {
                     name: "Material name",
-                    action: "Action"
+                    action: "Action",
+                    status: "Active"
                 }
             },
             typeProduct: {
@@ -51,7 +54,8 @@ const app = {
                 },
                 attribute: {
                     name: "Type product name",
-                    action: "Action"
+                    action: "Action",
+                    status: "Active"
                 }
             },
             supplier: {
@@ -59,14 +63,15 @@ const app = {
                 action: {
                     new: "New supplier",
                     update: "Update supplier",
-                },
-                attribute: {
-                    name: "Supplier name",
-                    action: "Action",
                     newSuccess: "Create supplier successfully",
                     updateSuccess: "Update supplier successfully",
                     newfaild: "Create supplier failded",
                     updatefaild: "Update supplier failded",
+                },
+                attribute: {
+                    name: "Supplier name",
+                    action: "Action",
+                    status: "Active"
                 }
             },
             property: {
@@ -91,18 +96,19 @@ const app = {
                 name: "Product name",
                 category: "Category",
                 material: "Material",
-                supplier:"Supplier",
+                supplier: "Supplier",
                 typeProduct: 'Type',
                 status: 'Status',
                 action: "Action",
                 properties: "Properties",
                 description: "Description",
-                weight:"Weight (gr)",
-                width:"Width (cm) ",
-                height:"Height (cm)",
-                length:"Length (cm)",
-                price:"Price",
-                priceSell:"Price sell",
+                weight: "Weight (gr)",
+                width: "Width (cm) ",
+                height: "Height (cm)",
+                length: "Length (cm)",
+                price: "Price",
+                priceSell: "Price sell",
+                images: "Images"
             },
             action: {
                 new: "New product",
@@ -117,10 +123,52 @@ const app = {
                 falseVal: "Non-avaiable",
             }
         },
-        networkFaild: "Error networking"
+        networkFaild: "Error networking",
+        validate: {
+            product: {
+                productNameNotNull: "Product name must not be null",
+                productNameSize: "Name product must be at least 3 characters and largest 100 characters",
+                lengthNotNull: "The length of the product must not be null",
+                lengthSize: "The length of the product must be larger than 0",
+                widthNotNull: "The width of the product must not be null",
+                widthSize: "The width of the product must be larger than 0",
+                heightNotNull: "The height of the product must not be null",
+                heightSize: "The height of the product must be larger than 0",
+                weightNotNull: "The weight of the product must not be null",
+                weightSize: "The weight of the product must be larger than 0",
+                priceNotNull: "The price of the product must not be null",
+                priceSize: "The price of the product must be larger than 0",
+                priceSellNotNull: "The price sell of the product must not be null",
+                priceSellSize: "The price sell of the product must be larger than 0",
+                categoryNotNull: "The category of the product must not be null",
+                materialNotNull: "The category of the product must not be null",
+                typeNotNull: "The type of the product must not be null",
+                supplierNotNull: "The supplier of the product must not be null",
+                imageNotNull: "Please select the images of product",
+                imageSize: "The number of images of product must smaller than 6",
+                statusNotNull: "The status must not be null"
+            },
+            category: {
+                categoryNotNull: "Category must not be null",
+                statusNotNull: "Status of category must not be null"
+            },
+            material: {
+                materialNotNull: "Material must not be null",
+                statusNotNull: "Status of material must not be null"
+            },
+            supplier: {
+                supplierNotNull: "Supplier must not be null",
+                statusNotNull: "Status of supplier must not be null"
+            },
+            typeProduct: {
+                materialNotNull: "Type of product must not be null",
+                statusNotNull: "Status must not be null"
+            }
+        }
     },
     vi: {
-        noData:"Không có dữ liệu",
+        lang: "Tiếng việt",
+        noData: "Không có dữ liệu",
         btn: {
             new: "Tạo mới",
             find: "Tìm kiếm",
@@ -141,7 +189,8 @@ const app = {
                 },
                 attribute: {
                     name: "Tên danh mục",
-                    action: "Hành động"
+                    action: "Hành động",
+                    status: "Trạng thái"
                 }
             },
             material: {
@@ -156,7 +205,8 @@ const app = {
                 },
                 attribute: {
                     name: "Tên chất liệu",
-                    action: "Hành động"
+                    action: "Hành động",
+                    status: "Trạng thái"
                 }
             },
             typeProduct: {
@@ -171,7 +221,8 @@ const app = {
                 },
                 attribute: {
                     name: "Tên loại sản phẩm",
-                    action: "Hành động"
+                    action: "Hành động",
+                    status: "Trạng thái"
                 }
             },
             supplier: {
@@ -186,7 +237,8 @@ const app = {
                 },
                 attribute: {
                     name: "Nhà cung cấp",
-                    action: "Hành động"
+                    action: "Hành động",
+                    status: "Trạng thái"
                 }
             },
             property: {
@@ -213,17 +265,18 @@ const app = {
                 category: "Danh mục",
                 material: "Chất liệu",
                 typeProduct: 'Loại sản phẩm',
-                supplier:"Nhà cung cấp",
+                supplier: "Nhà cung cấp",
                 status: 'Trạng thái',
                 action: "Hành động",
                 properties: "Thuộc tính",
                 description: "Mô tả",
-                weight:"Cân nặng (gram)",
-                width:"Chiều rộng (cm) ",
-                height:"Chiều cao (cm) ",
-                length:"Chiều dài (cm) ",
-                price:"Giá nhập",
-                priceSell:"Giá bán",
+                weight: "Cân nặng (gram)",
+                width: "Chiều rộng (cm) ",
+                height: "Chiều cao (cm) ",
+                length: "Chiều dài (cm) ",
+                price: "Giá gốc",
+                priceSell: "Giá bán",
+                images: "Hình ảnh"
             },
             action: {
                 new: "Tạo mới sản phẩm",
@@ -239,7 +292,50 @@ const app = {
 
             }
         },
-        networkFaild: "Lỗi kết nối"
+        networkFaild: "Lỗi kết nối",
+        validate: {
+            product: {
+                productNameNotNull: "Tên sản phẩm không được bỏ trống",
+                productNameSize: "Tên sản phẩm từ 3 đến 100 kí tự",
+                lengthNotNull: "Chiều dài của sản phẩm không được bỏ trống",
+                lengthSize: "Chiều dài của sản phẩm phải lớn hơn 0",
+                widthNotNull: "Chiều rộng của sản phẩm không được bỏ trống",
+                widthSize: "Chiều rộng của sản phẩm phải lớn hơn 0",
+                heightNotNull: "Chiều cao của sản phẩm không được bỏ trống",
+                heightSize: "Chiều cao của sản phẩm phải lớn hơn 0",
+                widthNotNull: "Chiều rộng của sản phẩm không được bỏ trống",
+                widthSize: "Chiều rộng của sản phẩm phải lớn hơn 0",
+                weightNotNull: "Cân nặng của sản phẩm không được bỏ trống",
+                weightSize: "Cân nặng của sản phẩm phải lớn hơn 0",
+                priceNotNull: "Giá gốc của sản phẩm không được bỏ trống",
+                priceSize: "Giá của sản phẩm phải lớn hơn 0",
+                priceSellNotNull: "Giá bán của sản phẩm không được bỏ trống",
+                priceSellSize: "Giá bán của sản phẩm phải lớn hơn 0",
+                categoryNotNull: "Danh mục của sản phẩm không được bỏ trống",
+                materialNotNull: "Chất liệu của sản phẩm không được bỏ trống",
+                typeNotNull: "Loại của sản phẩm không được bỏ trống",
+                supplierNotNull: "Nhà cung cấp của sản phẩm không được bỏ trống",
+                imageNotNull: "Vui lòng chọn ảnh của sản phẩm",
+                imageSize: "Số ảnh tối đa là 6",
+                statusNotNull: "Trạng thái không được bỏ trống"
+            },
+            category: {
+                categoryNotNull: "Danh mục không được bỏ trống",
+                statusNotNull: "Trạng thái không được bỏ trống"
+            },
+            material: {
+                materialNotNull: "Nhà cung cấp không được bỏ trống", 
+                statusNotNull: "Trạng thái không được bỏ trống"
+            },
+            supplier: {
+                supplierNotNull: "Nhà cung cấp không được bỏ trống", 
+                statusNotNull: "Trạng thái không được bỏ trống"
+            },
+            typeProduct: {
+                typeProductNotNull: "Loại sản phẩm không được bỏ trống", 
+                statusNotNull: "Trạng thái không được bỏ trống"
+            }
+        }
     }
 }
 export default app;

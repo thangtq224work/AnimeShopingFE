@@ -32,7 +32,7 @@
               <td class="text-center">{{ properties.beginIndex + 1 + index }}</td>
               <td class="text-center">{{ item.name }}</td>
               <td class="text-center">
-                <v-icon class="btn_icon" size="small" @click="editItem(item.id)" title="edit">
+                <v-icon class="btn_icon" size="small" @click="editItem(item)" title="edit">
                   mdi-pencil
                 </v-icon>
                 <!-- <v-icon class="btn_icon" size="small" @click="deleteItem(item.id)">
@@ -80,14 +80,20 @@
       </v-card-title>
 
       <v-card-text>
-        <v-container>
+        <v-form ref="form">
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="currentItem.name"
+              <v-text-field v-model="currentItem.name" :rules="nameValidate"
                 :label="app[getcurrentLanguge()].property.typeProduct.attribute.name"></v-text-field>
             </v-col>
+            <v-col cols="12">
+              <v-radio-group v-model="currentItem.status" inline :rules="statusValidate">
+                <v-radio :label="app[getcurrentLanguge()].product.status.trueVal" :value="true"></v-radio>
+                <v-radio :label="app[getcurrentLanguge()].product.status.falseVal" :value="false"></v-radio>
+              </v-radio-group>
+            </v-col>
           </v-row>
-        </v-container>
+        </v-form>
       </v-card-text>
 
       <v-card-actions>
@@ -116,15 +122,30 @@ const toast = useToast();
 const router = useRouter();
 let pageSize = ref(3);
 let properties = ref(null);
+const form = ref(null);
 let formTitle = ref('');
 let currentItem = ref({
   id: "",
-  name: ""
+  name: "",
+  status: null
 })
 let defaultItem = {
   id: "",
-  name: ""
+  name: "",
+  status: true
 };
+const nameValidate = [
+  (value) => {
+    if (value) return true;
+    return app[getcurrentLanguge()].validate.typeProduct.typeProductNotNull;
+  }
+]
+const statusValidate = [
+  (value) => {
+    if (!!value || value == false) return true;
+    return app[getcurrentLanguge()].validate.typeProduct.statusNotNull;
+  }
+];
 const onClickHandler = (p) => {
   getData(page.value - 1, pageSize.value)
 };
@@ -143,10 +164,10 @@ const getData = (p, ps) => {
   })
 }
 const editItem = (id) => {
-  const item = properties.value.data.find((i) => {
-    return i.id == id;
-  });
-  currentItem.value = Object.assign({}, item);
+  // const item = properties.value.data.find((i) => {
+  //   return i.id == id;
+  // });
+  currentItem.value = Object.assign({}, id);
   formTitle.value = app[getcurrentLanguge()].property.typeProduct.action.update;
   dialog.value = true;
 }
@@ -156,10 +177,15 @@ const infor = (id) => {
 }
 const newHandler = () => {
   formTitle.value = app[getcurrentLanguge()].property.typeProduct.action.new;
+  currentItem.value = Object.assign({}, defaultItem);
   dialog.value = true;
 }
 
 const saveToDb = async () => {
+  const { valid } = await form.value.validate();
+  if (!valid) {
+    return
+  }
   if (currentItem.value.id) {
     await update(currentItem.value).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {

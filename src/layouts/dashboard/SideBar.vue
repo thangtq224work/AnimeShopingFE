@@ -25,9 +25,11 @@
             <v-list-item v-bind="props" :title="navLink.name" :prepend-icon="navLink.icon" rounded="xl">
             </v-list-item>
           </template>
-          <v-list-item v-for='sub in navLink.children' :key="sub.name" :prepend-icon="sub.icon" :title="sub.name"
+          <v-list-item v-for='sub in navLink.children' :key="sub.name" 
+           :title="sub.name"
             :value="sub.name" :to="sub.path" rounded="xl" active-color="#3498db" exact>
           </v-list-item>
+          <!-- :prepend-icon="sub.icon" -->
         </v-list-group>
         <v-list-item v-else :title="navLink.name" :prepend-icon="navLink.icon" :to="navLink.path" :value="navLink.name"
           rounded="xl" active-color="#3498db" exact></v-list-item>
