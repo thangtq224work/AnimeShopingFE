@@ -21,28 +21,37 @@
     </v-app-bar>
 </template>
 <script setup>
-import { useCounterStore } from '@/stores/showSideBar';
 import { useRouter } from 'vue-router';
 import app from '@/i18n/dashboard';
 import getcurrentLanguge from '@/util/locale';
-const store = useCounterStore();
 const items = [
     {
-        val:'vi',
-        title:"Tiếng Việt"
+        val: 'vi',
+        title: "Tiếng Việt"
     },
     {
-        val:'en',
-        title:"English"
+        val: 'en',
+        title: "English"
     },
-    
-]
+
+];
+const props = defineProps({
+    drawer: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
+});
+
+const emits = defineEmits({
+    toggle:null
+})
 const toggle = () => {
-    store.setShow(!store.isShow);
+    emits('toggle');
 }
 const router = useRouter();
 const changeLocale = (i) => {
-    localStorage.setItem('locale',i.val);
+    localStorage.setItem('locale', i.val);
     router.go();
 }
 </script>

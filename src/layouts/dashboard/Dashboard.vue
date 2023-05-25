@@ -1,24 +1,23 @@
 <template>
-  <v-app>
-    <v-layout>
-      <SideBar :show-side-bar="store.getShow" class="fixed__sidebar" />
-      <Header></Header>
+  <v-app id="inspire">
+      <v-navigation-drawer v-model="showSideBar">
+        <template #prepend>
+          <SideBar></SideBar>
+        </template>
+      </v-navigation-drawer>
+      <Header :drawer="showSideBar" @toggle="showSideBar= !showSideBar "></Header>
       <v-main>
         <RouterView />
       </v-main>
-    </v-layout>
   </v-app>
 </template>
 
 <script setup>
 import SideBar from './SideBar.vue'
 import Header from './HeaderDashboard.vue'
-import { useCounterStore } from '@/stores/showSideBar';
-import { storeToRefs } from 'pinia'
+import { ref } from 'vue';
 
-const store = useCounterStore();
-const { show } = storeToRefs(store);
-// console.log(show,getShow,setShow);
+const showSideBar = ref(true);
 </script>
 <style>
   

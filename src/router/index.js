@@ -1,7 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '@/layouts/dashboard/Dashboard.vue'
-import Home from '@/layouts/default/App.vue'
+import Home from '@/layouts/home/App.vue'
 import Product from '@/views/product/Product.vue'
 
 

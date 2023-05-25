@@ -12,7 +12,8 @@
             </v-col>
         </VRow>
         <VRow class="ma-1 pb-5 pt-5 justify-center">
-            <v-btn color="primary" class="me-5" @click="filters" rounded="lg">
+            <!-- me-0 me-xs-5 me-sm-5 mb-sm-0 mb-5 -->
+            <v-btn color="primary" class="me-5 mb-3" @click="filters" rounded="lg">
                 {{ app[getcurrentLanguge()].btn.find }}
             </v-btn>
             <v-btn variant="outlined" color="primary" @click="reset" rounded="lg">
