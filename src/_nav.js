@@ -49,8 +49,8 @@ const nav = {
             },
         ],
         nav_footer: {
-            name: "Setting",
-            icon: "mdi-chevron-left",
+            name: "Home",
+            icon: "mdi-arrow-left",
             path: "/"
         },
     },
@@ -103,8 +103,8 @@ const nav = {
             },
         ],
         nav_footer: {
-            name: "Setting",
-            icon: "mdi-chevron-left",
+            name: "Trang chủ",
+            icon: "mdi-arrow-left",
             path: "/"
         },
     }

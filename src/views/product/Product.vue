@@ -65,6 +65,9 @@
                                 {{ app[getcurrentLanguge()].product.attribute.priceSell }}
                             </th>
                             <th class="text-center">
+                                {{ app[getcurrentLanguge()].product.attribute.quantity }}
+                            </th>
+                            <th class="text-center">
                                 {{ app[getcurrentLanguge()].product.attribute.status }}
                             </th>
                             <th class="text-center">
@@ -88,6 +91,7 @@
                             <td class="text-center">{{ item.supplier?.name }}</td>
                             <td class="text-center">{{ formatVND(item.price) }}</td>
                             <td class="text-center">{{ formatVND(item.priceSell) }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
                             <td class="text-center">{{ item.status == 1 ? app[getcurrentLanguge()].product.status.trueVal
                                 : app[getcurrentLanguge()].product.status.falseVal }}</td>
                             <td class="text-center">

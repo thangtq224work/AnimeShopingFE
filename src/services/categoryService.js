@@ -1,9 +1,9 @@
 import axios from '@/router/axios.js'
 const getAll = async (param)=>{
-    return axios.get('/category/get-all',{params:param});
+    return axios.get('/category/get',{params:param});
 }
 const getAllCategory = async ()=>{
-    return axios.get('/category/get-all-');
+    return axios.get('/category/get-all');
 }
 const getById = (id)=>{
     return axios.get(`/category/${id}`);

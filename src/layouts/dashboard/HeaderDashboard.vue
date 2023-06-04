@@ -11,7 +11,7 @@
 
                 <v-menu activator="#menu-activator">
                     <v-list>
-                        <v-list-item v-for="(item, index) in items" :key="index" :value="index" @click="changeLocale(item)">
+                        <v-list-item v-for="(item, index) in lang" :key="index" :value="index" @click="changeLocale(item)">
                             <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item>
                     </v-list>
@@ -24,17 +24,18 @@
 import { useRouter } from 'vue-router';
 import app from '@/i18n/dashboard';
 import getcurrentLanguge from '@/util/locale';
-const items = [
-    {
-        val: 'vi',
-        title: "Tiếng Việt"
-    },
-    {
-        val: 'en',
-        title: "English"
-    },
+import lang from '@/i18n/lang';
+// const items = [
+//     {
+//         val: 'vi',
+//         title: "Tiếng Việt"
+//     },
+//     {
+//         val: 'en',
+//         title: "English"
+//     },
 
-];
+// ];
 const props = defineProps({
     drawer: {
         type: Boolean,

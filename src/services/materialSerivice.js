@@ -1,9 +1,9 @@
 import axios from '@/router/axios.js'
 const getAll = async (param)=>{
-    return axios.get('/material/get-all',{params:param});
+    return axios.get('/material/get',{params:param});
 }
 const getAllMaterial = async ()=>{
-    return axios.get('/material/get-all-');
+    return axios.get('/material/get-all');
 }
 const getById = (id)=>{
     return axios.get(`/material/${id}`);

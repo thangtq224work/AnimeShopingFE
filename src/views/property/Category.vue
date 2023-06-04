@@ -175,6 +175,7 @@ const infor = (id) => {
     console.log(id);
 }
 const newHandler = () => {
+    currentItem.value = Object.assign({},defaultItem.value);
     formTitle.value = app[getcurrentLanguge()].property.category.action.new;
     dialog.value = true;
 }

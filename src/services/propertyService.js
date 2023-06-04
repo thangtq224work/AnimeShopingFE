@@ -1,9 +1,9 @@
 import axios from '@/router/axios.js'
 const getAll = async (param)=>{
-    return axios.get('/property/get-all',{params:param});
+    return axios.get('/property/get',{params:param});
 }
 const getAllProperty = async ()=>{
-    return axios.get('/property/get-all-');
+    return axios.get('/property/get-all');
 }
 const getById = (id)=>{
     return axios.get(`/property/${id}`);

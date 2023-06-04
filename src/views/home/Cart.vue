@@ -1,0 +1,142 @@
+<template>
+    <v-container fluid="">
+        <p class="cart__infor my-10">
+            Bạn đang có {{ cart?.length || 0 }} sản phẩm trong giỏ hàng
+        </p>
+        <v-divider></v-divider>
+        <v-row class="mx-0 mb-10">
+            <v-col cols="12" md="8">
+                <p class="text-center cart__text__title">Giỏ hàng</p>
+                <v-sheet>
+                    <v-table height="400">
+                        <thead>
+                            <tr>
+                                <th class="text-center text__bold">Hình ảnh</th>
+                                <th class="text-center text__bold">Sản phẩm</th>
+                                <th class="text-center text__bold">Giá</th>
+                                <th class="text-center text__bold">Só lượng</th>
+                                <th class="text-center text__bold">Tổng tiền</th>
+                                <th class="text-center text__bold">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr cols v-if="!cart || cart.length == 0" class="align__center">
+                                <td colspan="100">No data</td>
+                            </tr>
+                            <tr v-for="item in cart">
+                                    <td class="text-center py-1">
+                                        <v-img :src='item.images?.length != 0 ? item.images[0].url : NoImage'
+                                            :title="item.name" style="height: 100px; width: 100%;">
+                                        </v-img>
+                                    </td>
+                                    <td class="">
+                                        <div>
+                                            <v-list>
+                                                <v-list-item class="cart__infor__name">{{ item.name }}</v-list-item>
+                                                <v-list-item class="cart__infor__weight">{{ item.weight }}g</v-list-item>
+                                                <v-list-item>{{ item.category.name }}</v-list-item>
+                                            </v-list>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ formatVND(item.priceSell) }}</td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-center">{{ formatVND(item.quantity * item.priceSell) }}</td>
+                                    <td class="text-center">
+                                        <v-btn prepend-icon="mdi-trash-can-outline" variant="text"
+                                            @click="removeFromCart(item.id)"></v-btn>
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                </v-sheet>
+            </v-col>
+            <v-col cols="12" md="4">
+                <p class="text-center cart__text__title">Thông tin giỏ hàng</p>
+                <v-list>
+                    <v-list-item class="cart__infor__product">Khổi lượng ước tính : {{ total_weight || 0 }}g</v-list-item>
+                    <v-list-item class="cart__infor__product">Tổng sản phẩm : {{ total_quantity || 0 }}</v-list-item>
+                    <v-list-item class="cart__infor__product">Tổng tiền hàng : {{ formatVND(total_price || 0)
+                    }}</v-list-item>
+                </v-list>
+
+                <v-btn color="success" variant="outlined" @click="perchar">Đặt hàng</v-btn>
+            </v-col>
+        </v-row>
+    </v-container>
+</template>
+<script setup>
+import cartStore from '@/stores/cart';
+import NoImage from '@/assets/noImage.png'
+import { formatVND } from '@/util/formatVND';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { computed } from 'vue';
+import {getCart} from '@/services/homeService'
+const store = cartStore();
+const cart = ref(null);
+const total_price = computed(() => {
+    return cart.value?.reduce((initVal, value, index, array) => {
+        return initVal + (value.priceSell * value.quantity)
+    }, 0);
+});
+const total_weight = computed(() => {
+    return cart.value?.reduce((initVal, value, index, array) => {
+        return initVal + (value.weight * value.quantity)
+    }, 0);
+});
+const total_quantity = computed(() => {
+    return cart.value?.reduce((initVal, value, index, array) => {
+        return initVal + value.quantity
+    }, 0);
+});
+const perchar = () => {
+
+}
+const removeFromCart = (id) => {
+    store.removeFromCart(id);
+}
+onMounted(async () => {
+    await getCart(store.getCart).then(resp => {
+        if (resp.status >= 200 || resp.status < 300) {
+            cart.value = resp.data;
+        }
+    });
+})
+</script>
+<style>
+.text__bold {
+    font-weight: bold !important;
+    font-size: 1.25rem;
+}
+
+.cart__infor {
+    font-weight: bold !important;
+    color: red !important;
+    font-size: 1.25rem;
+}
+
+.align__center {
+    font-weight: bold !important;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.cart__text__title {
+    color: red !important;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cart__infor__product {
+    font-weight: bold;
+}
+
+.cart__infor__name {
+    font-weight: bolder;
+}
+
+.cart__infor__weight {
+    color: #4CAF50;
+}
+</style>

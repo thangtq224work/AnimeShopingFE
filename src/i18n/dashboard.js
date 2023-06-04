@@ -108,7 +108,8 @@ const app = {
                 length: "Length (cm)",
                 price: "Price",
                 priceSell: "Price sell",
-                images: "Images"
+                images: "Images",
+                quantity:"Quantity"
             },
             action: {
                 new: "New product",
@@ -146,7 +147,9 @@ const app = {
                 supplierNotNull: "The supplier of the product must not be null",
                 imageNotNull: "Please select the images of product",
                 imageSize: "The number of images of product must smaller than 6",
-                statusNotNull: "The status must not be null"
+                statusNotNull: "The status must not be null",
+                quantityNotNull: "The quantity must not be null",
+                quantitSize: "The quantity of product must larger or equal 0",
             },
             category: {
                 categoryNotNull: "Category must not be null",
@@ -276,7 +279,8 @@ const app = {
                 length: "Chiều dài (cm) ",
                 price: "Giá gốc",
                 priceSell: "Giá bán",
-                images: "Hình ảnh"
+                images: "Hình ảnh",
+                quantity:"Số lượng"
             },
             action: {
                 new: "Tạo mới sản phẩm",
@@ -317,7 +321,9 @@ const app = {
                 supplierNotNull: "Nhà cung cấp của sản phẩm không được bỏ trống",
                 imageNotNull: "Vui lòng chọn ảnh của sản phẩm",
                 imageSize: "Số ảnh tối đa là 6",
-                statusNotNull: "Trạng thái không được bỏ trống"
+                statusNotNull: "Trạng thái không được bỏ trống",
+                quantityNotNull: "Số lượng không được bỏ trống",
+                quantitSize: "Số lượng phải lớn hơn hoặc bằng 0",
             },
             category: {
                 categoryNotNull: "Danh mục không được bỏ trống",

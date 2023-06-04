@@ -66,6 +66,10 @@
                 </v-radio-group>
               </v-col>
               <v-col cols="12" md="6">
+                <v-text-field v-model="item.quantity" clearable :label="app[getcurrentLanguge()].product.attribute.quantity"
+                  :rules="quantityValidate"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
                 <v-file-input v-model="images" clearable :label="app[getcurrentLanguge()].product.attribute.images"
                   prepend-icon="" accept="image/jpg, image/jpeg, image/png" multiple outlined
                   style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" :rules="imagesValidate"></v-file-input>
@@ -165,6 +169,7 @@ let defaultItem = ref({
   weight: null,
   height: null,
   length: null,
+  quantity:null,
   price: null,
   priceSell: null,
   width: null,
@@ -320,6 +325,21 @@ const typeProductNotNull = [
     return app[getcurrentLanguge()].validate.product.typeNotNull;
   }
 ];
+const quantityValidate = [
+(value) => {
+    if (value) return true;
+    return app[getcurrentLanguge()].validate.product.quantityNotNull;
+  },
+  (value) => {
+    if (isNaN(value)) {
+      return app[getcurrentLanguge()].validate.product.quantitSize;
+    }
+    if(value < 0){
+      return app[getcurrentLanguge()].validate.product.quantitSize;
+    }
+    return true;
+  }
+]
 // const propertyNotNull = [
 //   (value) => {
 //     console.log(value);
@@ -417,7 +437,7 @@ onMounted(async () => {
     })];
   Promise.all(initDataPromies).then(([...arg]) => {
     if (!isSuccess) {
-      console.log(arg);
+      // console.log(arg);
       toast.error("Error networking");
     }
   }).catch(([...args]) => {
