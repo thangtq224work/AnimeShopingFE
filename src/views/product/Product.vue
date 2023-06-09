@@ -77,13 +77,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="properties == null || properties?.data?.length == 0">
+                        <tr v-if="products == null || products?.data?.length == 0">
                             <td colspan="20" class="text-center">
                                 {{ app[getcurrentLanguge()].noData }}
                             </td>
                         </tr>
-                        <tr v-else v-for="( item, index ) in  properties?.data " :key="item.id">
-                            <td class="text-center">{{ properties.beginIndex + 1 + index }}</td>
+                        <tr v-else v-for="( item, index ) in  products?.data " :key="item.id">
+                            <td class="text-center">{{ products.beginIndex + 1 + index }}</td>
                             <td class="text-center">{{ item.name }}</td>
                             <td class="text-center">{{ item.category?.name }}</td>
                             <td class="text-center">{{ item.material?.name }}</td>
@@ -109,17 +109,18 @@
             </VCol>
         </VRow>
     </VCard>
-    <v-container v-if="properties != null">
-        <VRow class="mx-0 align-center" v-if="properties?.data?.length != 0">
+    <v-container v-if="products != null">
+        {{ products }}
+        <VRow class="mx-0 align-center" v-if="products?.data?.length != 0">
             <VCol cols="12" md="6" sm="12" xs="12">
-                <vue-awesome-paginate class="d-flex justify-center" v-if="properties != null"
-                    :total-items="properties.totalRecords || 0" :items-per-page="properties.pageSize || 1"
+                <vue-awesome-paginate class="d-flex justify-center" v-if="products != null"
+                    :total-items="products.totalRecords || 0" :items-per-page="products.pageSize || 1"
                     :max-pages-shown="5" v-model="page" :on-click="onClickHandler" />
             </VCol>
             <VCol cols="6" md="4" sm="6" class="d-flex justify-end">
-                <span v-if="properties != null" class="current_page_message">{{
-                    (properties?.beginIndex + 1) + "-" + (properties?.endIndex) + " / " +
-                    (properties?.totalRecords) }}
+                <span v-if="products != null" class="current_page_message">{{
+                    (products?.beginIndex + 1) + "-" + (products?.endIndex) + " / " +
+                    (products?.totalRecords) }}
                 </span>
             </VCol>
             <VCol cols="6" md="2" sm="6">
@@ -152,7 +153,7 @@ const dialog = ref(false);
 const toast = useToast();
 const router = useRouter();
 const pageSize = ref(5);
-let properties = ref(null);
+let products = ref(null);
 let currentItem = ref(null)
 let filter = ref({
     search: null,
@@ -194,8 +195,9 @@ const initialize = () => {
 }
 const getData = (p, ps) => {
     getAll({ 'page': p, 'size': ps }).then((resp) => {
+        console.log((resp.status >= 200 && resp.status < 300));
         if (resp.status >= 200 && resp.status < 300) {
-            properties.value = resp.data;
+            products.value = resp.data;
         } else {
             toast.error(app[getcurrentLanguge()].networkFaild);
         }
@@ -225,14 +227,14 @@ const saveToDb = async (item, images) => {
         await update(item).then(resp => {
             if (resp.status >= 200 && resp.status < 300) {
 
-                const index = properties.value.data.findIndex(i => {
+                const index = products.value.data.findIndex(i => {
                     return i.id == currentItem.value.id;
                 })
-                properties.value.data[index] = Object.assign({}, resp.data);
+                products.value.data[index] = Object.assign({}, resp.data);
                 if (images.length > 0) {
                     return uploadImage(resp.data.id, images).then((resp) => {
                         if (resp.status >= 200 && resp.status < 300) {
-                            properties.value.data[index].images = resp.data;
+                            products.value.data[index].images = resp.data;
                             toast.info(app[getcurrentLanguge()].product.action.updateSuccess);
                             close();
                         } else {
@@ -240,7 +242,7 @@ const saveToDb = async (item, images) => {
                         }
                     });
                 }
-                properties.value.data[index] = Object.assign({}, resp.data);
+                products.value.data[index] = Object.assign({}, resp.data);
                 toast.info(app[getcurrentLanguge()].product.action.updateSuccess);
                 close();
             } else {

@@ -116,8 +116,10 @@ import { onMounted } from 'vue';
 import Product from '@/views/home/Product.vue';
 import cartStore from '@/stores/cart';
 import ProductDialog from '@/views/home/ProductDialog.vue';
+import authStore from '@/stores/auth';
 // v2 : 
 // const imageUrl = new URL('@/assets/noImage.png', import.meta.url).href;
+const auth = authStore();
 const filterData = ref(null);
 const productData = ref(null);
 const cart = cartStore();

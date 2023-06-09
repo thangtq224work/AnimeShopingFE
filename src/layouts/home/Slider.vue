@@ -1,10 +1,10 @@
 <template>
         <v-carousel width="auto" class="css_cua_thang">
-            <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover></v-carousel-item>
+            <v-carousel-item src="https://theme.hstatic.net/1000160337/1000885200/14/slide_1_img.jpg?v=309" cover></v-carousel-item>
 
-            <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/hotel.jpg" cover></v-carousel-item>
+            <v-carousel-item src="https://theme.hstatic.net/1000160337/1000885200/14/slide_2_img.jpg?v=309" cover></v-carousel-item>
 
-            <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-carousel-item>
+            <v-carousel-item src="https://theme.hstatic.net/1000160337/1000885200/14/slide_3_img.jpg?v=309" cover></v-carousel-item>
         </v-carousel>
 </template>
 <style>

@@ -10,11 +10,13 @@ const navBar = {
                         name: "Login",
                         icon: "1",
                         path: "/login",
+                        requireLogin:false
                     },
                     {
                         name: "Logout",
                         icon: "2",
                         path: "/logout",
+                        requireLogin:true
                     },
 
                 ]
@@ -30,6 +32,7 @@ const navBar = {
                 name: "Home",
                 icon: "mdi-account",
                 path: "/home",
+                requireManagerRole:false
                 // children: [
                 //     {
                 //         name: "Login",
@@ -47,11 +50,20 @@ const navBar = {
             {
                 name: "About me",
                 icon: "mdi-cart-outline",
-                path: "/about-me"
-            },{
+                path: "/about-me",
+                requireManagerRole:false
+            },
+            {
                 name: "Cart",
                 icon: "mdi-cart-outline",
-                path: "/cart"
+                path: "/cart",
+                requireManagerRole:false
+            },
+            {
+                name: "Manager",
+                icon: "mdi-cart-outline",
+                path: "/manager",
+                requireManagerRole:true
             },
         ],
     },
@@ -65,12 +77,14 @@ const navBar = {
                     {
                         name: "Đăng nhập",
                         icon: "",
-                        path: "",
+                        path: "/dang-nhap",
+                        requireLogin:false
                     },
                     {
-                        name: "Đăng kí",
+                        name: "Đăng xuất",
                         icon: "",
-                        path: "",
+                        path: "/dang-xuat",
+                        requireLogin:true
                     },
 
                 ]
@@ -86,6 +100,7 @@ const navBar = {
                 name: "Trang chủ",
                 icon: "mdi-account",
                 path: "/trang-chu",
+                requireManagerRole:false
                 // children: [
                 //     {
                 //         name: "Login",
@@ -103,11 +118,20 @@ const navBar = {
             {
                 name: "Thông tin",
                 icon: "mdi-cart-outline",
-                path: "/thong-tin"
-            },{
+                path: "/thong-tin",
+                requireManagerRole:false
+            },
+            {
                 name: "Giỏ hàng",
                 icon: "mdi-cart-outline",
-                path: "/gio-hang"
+                path: "/gio-hang",
+                requireManagerRole:false
+            },
+            {
+                name: "Quản lý",
+                icon: "mdi-cart-outline",
+                path: "/quan-ly",
+                requireManagerRole:true
             },
         ],
     }

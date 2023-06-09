@@ -14,15 +14,14 @@
     "core-js": "^3.8.3",
     "mitt": "^3.0.0",
     "pinia": "^2.0.34",
+    "qs": "^6.11.1",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-awesome-paginate": "^1.1.46",
     "vue-router": "^4.0.0",
     "vue-toastification": "^2.0.0-rc.5",
     "vuetify": "^3.1.14",
-    "webfontloader": "^1.0.0",
-    "qs": "^6.11.1",
-    "js-cookie": "^3.0.5"
+    "webfontloader": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",

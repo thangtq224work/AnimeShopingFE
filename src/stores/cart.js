@@ -22,12 +22,13 @@ const cartStore = defineStore("cart", () => {
     }
     const updateQuantity = (id, quantity) => {
         const index = cart.value.findIndex((item) => {
-            item.id = id;
+            return item.id == id;
         });
         if (index == -1) {
             return false;
         }
-        cart.value[index].quantity = quantity;
+        console.log(id,quantity,index);
+        cart.value[index].quantity = Number(quantity);
         updateCart();
         return true;
     }
