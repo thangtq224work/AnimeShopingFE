@@ -124,6 +124,37 @@ const app = {
                 falseVal: "Non-avaiable",
             }
         },
+        discount:{
+            name:"Discount information",
+            attribute:{
+                id:"#",
+                name:"Discount name",
+                status:"Discount status",
+                from:"From",
+                to:"To",
+                amount:"Discount amount",
+                action:"Action",
+                description:"Description",
+                orginalPrice:"Orginal price",
+                priceSell:"Price sell",
+                
+            },
+            action:{
+                detailBtn:"Detail",
+                updateBtn:"Update",
+                new: "New discount",
+                update: "Update discount",
+                newSuccess: "Create discount successfully",
+                updateSuccess: "Update discount successfully",
+                newfaild: "Create discount failded",
+                updatefaild: "Update discount failded",    
+            },
+            status: {
+                trueVal: "Avaiable",
+                falseVal: "Non-avaiable",
+                experied:"Experied"
+            }
+        },
         networkFaild: "Error networking",
         validate: {
             product: {
@@ -150,6 +181,16 @@ const app = {
                 statusNotNull: "The status must not be null",
                 quantityNotNull: "The quantity must not be null",
                 quantitSize: "The quantity of product must larger or equal 0",
+            },
+            discount:{
+                discountNameSize: "Discount name must be at least 1 characters and largest 100 characters",
+                discountTypeNotNull: "Please select type of discount",
+                discountAmountNotNull: "Please type amount of discount",
+                discountAmountSize: "Discount amount from 1 to 99%",
+                discountAmountSize2: "Discount amount must be larger than 0",
+                discountStartNotNull: "Please select start date of discount",
+                discountEndNotNull: "Please select end date of discount",
+                
             },
             category: {
                 categoryNotNull: "Category must not be null",
@@ -296,6 +337,36 @@ const app = {
 
             }
         },
+        discount:{
+            name:"Thông tin giảm giá",
+            attribute:{
+                id:"STT",
+                name:"Tên giảm giá",
+                status:"Trạng thái",
+                from:"Bắt đầu",
+                to:"Kết thúc",
+                amount:"Mức giảm",
+                action:"Hành động",
+                description:"Mô tả",
+                orginalPrice:"Giá gốc",
+                priceSell:"Giá bán"
+            },
+            action:{
+                detailBtn:"Chi tiết",
+                updateBtn:"Cập nhật",
+                new: "Tạo mới giảm giá",
+                update: "Cập nhật giảm giá",
+                newSuccess: "Tạo mới giảm giá thành công",
+                updateSuccess: "Cập nhật giảm giá thành công",
+                newfaild: "Tạo mới giảm giá thất bại",
+                updatefaild: "Cập nhật giảm giá thất bại",    
+            },
+            status: {
+                trueVal: "Khả dụng",
+                falseVal: "Không khả dụng",
+                experied:"Hết hạn"
+            }
+        },
         networkFaild: "Lỗi kết nối",
         validate: {
             product: {
@@ -324,6 +395,16 @@ const app = {
                 statusNotNull: "Trạng thái không được bỏ trống",
                 quantityNotNull: "Số lượng không được bỏ trống",
                 quantitSize: "Số lượng phải lớn hơn hoặc bằng 0",
+            },
+            discount:{
+                discountNameSize: "Tên khuyến mại từ 1 - 100 kí tự",
+                discountTypeNotNull: "Vui lòng chọn loại khuyến mại",
+                discountAmountNotNull: "Vui lòng nhập mức khuyến mại",
+                discountAmountSize: "Mức khuyến mại từ 1 tới 99%",
+                discountAmountSize2: "Mức khuyến mại phải lớn hơn 0",
+                discountStartNotNull: "Vui lòng chọn ngày bắt đầu",
+                discountEndNotNull: "Vui lòng chọn ngày kết thúc",
+                
             },
             category: {
                 categoryNotNull: "Danh mục không được bỏ trống",

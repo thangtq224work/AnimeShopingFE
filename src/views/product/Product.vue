@@ -110,7 +110,6 @@
         </VRow>
     </VCard>
     <v-container v-if="products != null">
-        {{ products }}
         <VRow class="mx-0 align-center" v-if="products?.data?.length != 0">
             <VCol cols="12" md="6" sm="12" xs="12">
                 <vue-awesome-paginate class="d-flex justify-center" v-if="products != null"

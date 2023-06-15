@@ -2,10 +2,10 @@
     <v-container fluid="">
         <v-window v-model="step">
             <v-window-item :value="1">
-                <CartComponent :cart="cartData" @remove-from-cart="removeFromCart" @next-window="nextWindow"/>
+                <Cart :cart="cartData" @remove-from-cart="removeFromCart" @next-window="nextWindow"/>
             </v-window-item>
             <v-window-item :value="2">
-                aaaa
+                <Perchar :cart="cartData" @back="back" />
                 <!-- <CartComponent :cart="cartData" @remove-from-cart="removeFromCart"/> -->
             </v-window-item>
         </v-window>
@@ -16,9 +16,8 @@ import cartStore from '@/stores/cart';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { getCart } from '@/services/homeService'
-import homeApp from '@/i18n/home';
-import getcurrentLanguge from '@/util/locale';
-import CartComponent from './Cart.vue';
+import Cart from './Cart.vue';
+import Perchar from './Perchar.vue';
 const step = ref(1);
 const store = cartStore();
 const cartData = ref(null);
@@ -27,7 +26,10 @@ const removeFromCart = (index) =>{
 }
 const nextWindow = () =>{
     step.value = 2;
-    console.log(cartData.value);
+}
+
+const back = () =>{
+    step.value = 1;
 }
 onMounted(async () => {
     await getCart(store.getCart).then(resp => {

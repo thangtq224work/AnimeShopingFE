@@ -10,6 +10,8 @@ import Forbiden from '@/views/Forbiden.vue'
 import getcurrentLanguge from '@/util/locale'
 import authStore from '@/stores/auth'
 import roles from '@/stores/roles'
+import Discount from '@/views/discounts/Discount.vue'
+import DiscountDetail from '@/views/discounts/DiscountDetail.vue'
 // let auth = authStore();  // have error
 const routes = [
   {
@@ -71,6 +73,19 @@ const routes = [
         name: 'material',
         meta: { authorire: [roles.USER, roles.ADMIN], requiresAuth: true },
         component: () => import('@/views/property/Material.vue'),
+      },
+      {
+        path: '/discount',
+        alias:'/giam-gia',
+        name: 'discount',
+        meta: { authorire: [roles.USER] },
+        component: Discount,
+      },
+      {
+        path: '/discount/:id',
+        name: 'discount-detail',
+        meta: { authorire: [roles.USER] },
+        component: DiscountDetail,
       },
       {
         alias: "/danh-muc",

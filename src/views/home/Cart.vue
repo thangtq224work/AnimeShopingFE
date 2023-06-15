@@ -1,27 +1,28 @@
 <template>
     <p class="cart__infor my-10">
-        Bạn đang có {{ props.cart?.length || 0 }} sản phẩm trong giỏ hàng
+        <!-- Bạn đang có {{ props.cart?.length || 0 }} sản phẩm trong giỏ hàng -->
+        {{ homeApp[getcurrentLanguge()].cartPage.cartProduct(props.cart?.length || 0 ) }}
     </p>
     <v-divider></v-divider>
     <v-row class="mx-0 mb-10">
         <v-col cols="12" md="8">
-            <p class="text-center cart__text__title">Giỏ hàng</p>
+            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cart }}</p>
             <v-sheet>
                 <v-form ref="form">
                     <v-table height="550">
                         <thead>
                             <tr>
-                                <th class="text-center text__bold">Hình ảnh</th>
-                                <th class="text-center text__bold">Sản phẩm</th>
-                                <th class="text-center text__bold">Giá</th>
-                                <th class="text-center text__bold">Só lượng</th>
-                                <th class="text-center text__bold">Tổng tiền</th>
-                                <th class="text-center text__bold">Xóa</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.image }}</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.figure }}</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.price }}</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.quantity }}</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.totalPrice }}</th>
+                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.action }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr cols v-if="!props.cart || props.cart.length == 0" class="align__center">
-                                <td colspan="100">No data</td>
+                                <td colspan="100">{{ homeApp[getcurrentLanguge()].noData }}</td>
                             </tr>
                             <tr v-for="(item, index) in props.cart">
                                 <td class="text-center py-1">
@@ -58,14 +59,14 @@
             </v-sheet>
         </v-col>
         <v-col cols="12" md="4">
-            <p class="text-center cart__text__title">Thông tin giỏ hàng</p>
+            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cartInfor }}</p>
             <v-list>
-                <v-list-item class="cart__infor__product">Khổi lượng ước tính : {{ total_weight || 0 }}g</v-list-item>
-                <v-list-item class="cart__infor__product">Tổng sản phẩm : {{ total_quantity || 0 }}</v-list-item>
-                <v-list-item class="cart__infor__product">Tổng tiền hàng : {{ formatVND(total_price || 0)}}</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalWeight }} : {{ total_weight || 0 }}g</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalQuantity }} : {{ total_quantity || 0 }}</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalPrice }} : {{ formatVND(total_price || 0)}}</v-list-item>
             </v-list>
 
-            <v-btn color="success" variant="outlined" @click="perchar">Đặt hàng</v-btn>
+            <v-btn color="success" variant="outlined" @click="perchar">{{ homeApp[getcurrentLanguge()].cartPage.btn.perchar }}</v-btn>
         </v-col>
     </v-row>
 </template>
@@ -182,6 +183,7 @@ onMounted(async () => {
 
 .cart__infor__product {
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .cart__infor__name {

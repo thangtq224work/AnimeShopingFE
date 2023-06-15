@@ -43,6 +43,11 @@ const nav = {
                 path: "/product",
             },
             {
+                name: "Discount",
+                icon: "mdi-sale",
+                path: "/discount",
+            },
+            {
                 name: "Order",
                 icon: "mdi-account-circle",
                 path: "/order"
@@ -95,6 +100,11 @@ const nav = {
                 name: "Sản phẩm",
                 icon: "mdi-alarm",
                 path: "/san-pham",
+            },
+            {
+                name: "Giảm giá",
+                icon: "mdi-sale",
+                path: "/giam-gia",
             },
             {
                 name: "Hóa đơn",

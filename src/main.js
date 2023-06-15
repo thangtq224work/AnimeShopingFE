@@ -16,6 +16,8 @@ import { createPinia } from 'pinia'
 import VueAwesomePaginate from "vue-awesome-paginate";
 import "vue-awesome-paginate/dist/style.css";
 import mitt from 'mitt';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const pinia = createPinia()
 const emitter = mitt()
@@ -29,6 +31,7 @@ app.use(Toast, {
     pauseOnHover: false,
     newestOnTop: true
   });
+  app.component('VueDatePicker', VueDatePicker);
 
 registerPlugins(app)
 

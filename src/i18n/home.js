@@ -14,6 +14,53 @@ const homeApp = {
                 passwordNotNull: "Password must not be null",
             }
         },
+        cartPage:{
+            cart:"Cart",
+            cartField:{
+                image:"Image",
+                figure:"Figure",
+                price:"Price",
+                quantity:"Quantity",
+                totalPrice:"Total",
+                action:"Action",
+            },
+            cartProduct: (quantity) =>{
+                return `You have ${quantity} ${quantity > 1 ? 'products' : 'product'} in your cart`
+            },
+            cartInfor:"Cart information",
+            totalWeight:"Total weight ( esstimate )",
+            totalQuantity:"Total quantity",
+            totalPrice:"Total price",
+            discount:"Discount",
+            shippingFee:"Transport fee",
+            price:"Price",
+            userInfor:{
+                name:"Full name",
+                email:"Email",
+                phone:"Phone",
+                address:"Address",
+                province:"Province",
+                district:"District",
+                ward:"Ward",
+                description:"Description",
+                shippingMethod:"Shipping method"
+            },
+            userValidate:{
+                name:"Full name must be between 5 and 50 characters",
+                email:"Email invalid",
+                phone:"Phone invalid",
+                address:"Address must be between 5 and 50 characters",
+                province:"Please select your province",
+                ward:"Please select your ward",
+                district:"Please select your district",
+                description:"Description must less than 500 characters",
+            },
+            btn:{
+                perchar:"Order",
+                back:"Back",
+                confirm:"Confirm"
+            }
+        },
         quantityValidate:{
             quantityNotNull:"Quantity of product must not be null",
             quantitySize:`Quantity of product must greater than 0 or less than ${QUANTITY_SIZE}`,
@@ -86,6 +133,55 @@ const homeApp = {
             validate:{
                 usernameNotNull: "Vui lòng nhập tên đăng nhập",
                 passwordNotNull: "Vui lòng nhập mật khẩu",
+            }
+        },
+        
+        cartPage:{
+            cart:"Giỏ hàng",
+            cartField:{
+                image:"Hình ảnh",
+                figure:"Mô hình",
+                price:"Giá",
+                quantity:"Số lượng",
+                totalPrice:"Tổng tiền",
+                action:"Hành động",
+            },
+            cartProduct: (quantity) =>{
+                return `Bạn đang có ${quantity} trong giỏ hàng`
+            },
+            cartInfor:"Thông tin giỏ hàng",
+            totalWeight:"Khối lượng ( ước tính )",
+            totalQuantity:"Tổng sản phẩm",
+            totalPrice:"Tổng đơn hàng",
+            discount:"Giảm giá",
+            shippingFee:"Phí vận chuyển",
+            price:"Giá",
+            userInfor:{
+                name:"Họ tên",
+                email:"Email",
+                phone:"Số điện thoại",
+                address:"Địa chỉ",
+                province:"Tỉnh thành",
+                district:"Quận / Huyện",
+                ward:"Xã / Phường",
+                description:"Mô tả",
+                shippingMethod:"Phương thức vận chuyển"
+            },
+            
+            userValidate:{
+                name:"Họ tên từ 5 - 50 kí tự",
+                email:"Email không hợp lệ",
+                phone:"Số điện thoại không hợp lệ",
+                address:"Địa chỉ từ 5 - 50 kí tự",
+                province:"Vui lòng chọn tỉnh thành",
+                ward:"Vui lòng chọn xã phường",
+                district:"Vui lòng chọn quận / huyện",
+                description:"Mô tả phải nhỏ hơn 500 kí tự",
+            },
+            btn:{
+                perchar:"Đặt hàng",
+                back:"Quay lại",
+                confirm:"Xác nhận"
             }
         },
         quantityValidate:{
