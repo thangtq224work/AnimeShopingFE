@@ -1,4 +1,4 @@
-const QUANTITY_SIZE = 10;
+import { QUANTITY_SIZE } from "@/const/validate";
 const homeApp = {
     en: {
         lang: "English",
@@ -16,6 +16,10 @@ const homeApp = {
         },
         cartPage:{
             cart:"Cart",
+            orderAction:{
+                orderSuccess:"Ordered successfully",
+                orderFaild:"Ordered failded , please checking again",
+            },
             cartField:{
                 image:"Image",
                 figure:"Figure",
@@ -115,6 +119,11 @@ const homeApp = {
             name: "Add to cart"
         },
         detail: "Detail",
+        cartAlert:{
+            addToCartSuccess: "Add to cart successfully",
+            addToCartFaild: "The quantity of product is fully . please check again",
+            
+        },
         detailDialog: {
             dimension: "Dimension",
             weight: "Weight",
@@ -138,6 +147,10 @@ const homeApp = {
         
         cartPage:{
             cart:"Giỏ hàng",
+            orderAction:{
+                orderSuccess:"Đặt hàng thành công",
+                orderFaild:"Đặt hàng thất bại, vui lòng kiểm tra lại",
+            },
             cartField:{
                 image:"Hình ảnh",
                 figure:"Mô hình",
@@ -237,6 +250,11 @@ const homeApp = {
             path: "them-vao-gio-hang",
             name: "Thêm vào giỏ hàng"
         },
+        cartAlert:{
+            addToCartSuccess: "Thêm vào giỏ hàng thành công",
+            addToCartFaild: "Số lượng của sản phẩm đã đầy . Vui lòng kiểm tra giỏ hàng",
+            
+        },
         detail: "Chi tiết",
         detailDialog: {
             dimension: "Kích thước",
@@ -247,4 +265,3 @@ const homeApp = {
     },
 }
 export default homeApp;
-export { QUANTITY_SIZE }

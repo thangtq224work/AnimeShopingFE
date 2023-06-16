@@ -129,7 +129,7 @@ const routes = [
         path: '/order',
         name: 'order',
         meta: { authorire: [roles.USER, roles.ADMIN], requiresAuth: true },
-        component: () => import('@/views/Order.vue'),
+        component: () => import('@/views/order/Order.vue'),
       },
     ],
   },

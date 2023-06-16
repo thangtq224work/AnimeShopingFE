@@ -78,7 +78,7 @@ import { formatVND } from '@/util/formatVND';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
-import { QUANTITY_SIZE } from '@/i18n/home'
+import { QUANTITY_SIZE } from '@/const/validate'
 import homeApp from '@/i18n/home';
 import getcurrentLanguge from '@/util/locale';
 const form = ref(null);

@@ -9,43 +9,43 @@
                 <v-form @submit.prevent ref="form">
                     <v-row class="mx-8">
                         <v-col cols="12">
-                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.name"
+                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.name" v-model="orderData.name"
                                 :rules="nameValidate"></v-text-field>
                         </v-col>
                         <v-col cols="8">
-                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.email"
+                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.email" v-model="orderData.email"
                                 :rules="emailValidate"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.phone"
+                            <v-text-field variant="outlined" :label="homeApp[getcurrentLanguge()].cartPage.userInfor.phone" v-model="orderData.phone"
                                 :rules="phoneValidate"></v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field variant="outlined"
-                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.address"
+                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.address" v-model="orderData.address" :suffix="(!province?'':province.ProvinceName) + ', ' + (!district?'':district.DistrictName) + ', ' + (!ward?'':ward.WardName)"
                                 :rules="addressValidate"></v-text-field>
                         </v-col>
                         <v-col cols="4">
                             <v-select v-model="province" variant="outlined"
-                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.province" :items="provinces"
+                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.province" :items="provinces" :no-data-text="homeApp[getcurrentLanguge()].noData"
                                 item-title="ProvinceName" item-value="ProvinceID" @update:model-value="changeProvince"
                                 :rules="provinceValidate" return-object></v-select>
                         </v-col>
 
                         <v-col cols="4">
-                            <v-select v-model="district" variant="outlined" :items="districts" item-title="DistrictName"
+                            <v-select v-model="district" variant="outlined" :items="districts" item-title="DistrictName" :no-data-text="homeApp[getcurrentLanguge()].noData"
                                 :rules="districtValidate" item-value="DistrictID"
                                 :label="homeApp[getcurrentLanguge()].cartPage.userInfor.district"
                                 @update:model-value="changeDistrict" return-object></v-select>
                         </v-col>
 
                         <v-col cols="4">
-                            <v-select v-model="ward" variant="outlined" :items="wards" item-title="WardName"
+                            <v-select v-model="ward" variant="outlined" :items="wards" item-title="WardName" :no-data-text="homeApp[getcurrentLanguge()].noData"
                                 :rules="wardValidate" item-value="WardCode"
                                 :label="homeApp[getcurrentLanguge()].cartPage.userInfor.ward" return-object></v-select>
                         </v-col>
                         <v-col cols="12">
-                            <v-textarea variant="outlined" rows="3" v-model="description"
+                            <v-textarea variant="outlined" rows="3" v-model="orderData.description"
                                 :label="homeApp[getcurrentLanguge()].cartPage.userInfor.description"
                                 :rules="descriptionValidate"></v-textarea>
                         </v-col>
@@ -115,6 +115,11 @@ import getcurrentLanguge from '@/util/locale';
 import { getProvince, getDistrict, getWard, getService, calculateFee } from '@/services/address'
 import { watch } from 'vue';
 import { emailPattern, phonePattern } from '@/const/validate'
+import { order } from '@/services/orderSerivce';
+import { useToast } from 'vue-toastification';
+import authStore from '@/stores/auth';
+const toast = useToast();
+const auth = authStore();
 const form = ref(null);
 let provinces = ref([]);
 let districts = ref([]);
@@ -127,6 +132,7 @@ const shippingFee = ref(0);
 const serviceShipping = ref([]);
 const service = ref(null);
 const description = ref(null);
+const orderData = ref({});
 const props = defineProps({
     cart: {
         type: Object,
@@ -207,10 +213,13 @@ const wardValidate = [
 
 const descriptionValidate = [
     (value) => {
-        if (!value) return true;
-        if (value?.length > 500) {
+        if (!value){
+            return true
+        };
+        if (value.length > 500) {
             return homeApp[getcurrentLanguge()].cartPage.userValidate.description
         }
+        return true;
     }
 ];
 const totalPrice = computed(() => {
@@ -290,7 +299,23 @@ const confirm = async () => {
     if (!valid) {
         return;
     }
-    alert("oke")
+    orderData.value.userId = await auth.getUser(); 
+    orderData.value.shippingFee = shippingFee.value.total;
+    orderData.value.address = `${orderData.value.address} ,${province.value.ProvinceName} ,${district.value.DistrictName}, ${ward.value.WardName}`;
+    orderData.value.product = JSON.parse(JSON.stringify(props.cart));
+    orderData.value.addressCode = `${province.value.ProvinceID},${district.value.DistrictID},${ward.value.WardCode}`
+    console.log(orderData.value);
+    await order(orderData.value).then((resp)=>{
+        if(resp.data.code >=200 && resp.data.code <300){
+            toast.success(homeApp[getcurrentLanguge()].cartPage.orderAction.orderSuccess);
+        }else{
+            toast.warning(homeApp[getcurrentLanguge()].cartPage.orderAction.orderFaild);
+        }
+    }).catch(err=>{
+        console.log(err);
+        toast.error("");
+    })
+    
 }
 onMounted(async () => {
     await getProvinceHandler();

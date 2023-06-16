@@ -33,13 +33,17 @@ const cartStore = defineStore("cart", () => {
         return true;
     }
     const removeFromCart = (id) =>{
-        const index = cart.value.findIndex((item) => {
-            return item.id == id;
-        });
+        const index = getIndexOfProductInCart(id);
         if(index != -1){
             cart.value.splice(index,1);
         }
         updateCart();
+    }
+    const getIndexOfProductInCart = (id) =>{
+        return cart.value.findIndex((item) => {
+            return item.id == id;
+        });
+        
     }
     const clearCart = () => {
         cart.value = [];
@@ -48,6 +52,6 @@ const cartStore = defineStore("cart", () => {
     const updateCart = () => {
         localStorage.setItem('cart', JSON.stringify(cart.value));
     }
-    return { cart, getCart, addToCart, clearCart, updateQuantity,removeFromCart };
+    return { cart, getCart, addToCart, clearCart, updateQuantity,removeFromCart,getIndexOfProductInCart };
 });
 export default cartStore;

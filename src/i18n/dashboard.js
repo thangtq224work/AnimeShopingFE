@@ -1,3 +1,5 @@
+import status from "@/const/orderStatus";
+
 const app = {
     en: {
         lang: "English",
@@ -153,6 +155,58 @@ const app = {
                 trueVal: "Avaiable",
                 falseVal: "Non-avaiable",
                 experied:"Experied"
+            }
+        },
+        order:{
+            tabs:[
+                
+                {
+                    name:"All",
+                    value:status.ALL,
+                    status:"All"
+                },
+                {
+                    name:"Order waiting",
+                    value:status.WAITING,
+                    status:"waiting"
+                },
+                {
+                    name:"Order confirmed",
+                    value:status.CONFIRMED,
+                    status:"waiting"
+                },
+                {
+                    name:"Order waiting shipping",
+                    value:status.WAITING_SHIPPING,
+                    status:"waiting shipping"
+
+                },
+                {
+                    name:"Order shipping",
+                    value:status.SHIPPING,
+                    status:"Shipping"
+
+                },
+                {
+                    name:"Order success",
+                    value:status.SUCCESS,
+                    status:"Success"
+                },
+                {
+                    name:"Order cancel",
+                    value:status.CANCEL,
+                    status:"Cancel"
+                },
+            ],
+            attribute:{
+                id:"#",
+                orderCode: "Order code",
+                orderDate: "Order date",
+                orderBy: "Order by",
+                total: "Total price",
+                customerMoney: "Customer money",
+                status: "Status",
+                action: "Action",
             }
         },
         networkFaild: "Error networking",
@@ -366,6 +420,58 @@ const app = {
                 falseVal: "Không khả dụng",
                 experied:"Hết hạn"
             }
+        },
+        
+        order:{
+            tabs:[
+                
+                {
+                    name:"Tất cả",
+                    value:status.ALL,
+                    status:"Tất cả"
+                },
+                {
+                    name:"Hóa đơn chờ",
+                    value:status.WAITING,
+                    status:"Chờ xác nhận"
+                },
+                {
+                    name:"Hóa đơn đã xác nhận",
+                    value:status.CONFIRMED,
+                    status:"Đã xác nhận"
+                },
+                {
+                    name:"Hóa đơn chờ giao hàng",
+                    value:status.WAITING_SHIPPING,
+                    status:"Chờ giao hàng"
+                },
+                {
+                    name:"Hóa đơn đang giao",
+                    value:status.SHIPPING,
+                    status:"Đang giao"
+                },
+                {
+                    name:"Hóa đơn đã giao thành công",
+                    value:status.SUCCESS,
+                    status:"Thành công"
+                },
+                {
+                    name:"Hóa đơn bị hủy",
+                    value:status.CANCEL,
+                    status:"Bị hủy"
+                },
+            ],
+            attribute:{
+                id:"#",
+                orderCode: "Mã hóa đơn",
+                orderDate: "Ngày đặt hàng",
+                orderBy: "Người đặt hàng",
+                total: "Tổng đơn hàng",
+                customerMoney: "Khách hàng trả",
+                status: "Trạng thái",
+                action: "Hành động",
+            }
+
         },
         networkFaild: "Lỗi kết nối",
         validate: {

@@ -117,6 +117,7 @@ import Product from '@/views/home/Product.vue';
 import cartStore from '@/stores/cart';
 import ProductDialog from '@/views/home/ProductDialog.vue';
 import authStore from '@/stores/auth';
+import { QUANTITY_SIZE } from '@/const/validate';
 // v2 : 
 // const imageUrl = new URL('@/assets/noImage.png', import.meta.url).href;
 const auth = authStore();
@@ -156,8 +157,17 @@ const onClickHandler = async () => {
     await getProductData();
 }
 const addToCart = (it) => {
-    cart.addToCart(it,1);
-    toast.success("Thêm vào giỏ hàng thành công");
+    console.log(it);
+    const index = cart.getIndexOfProductInCart(it.id);
+    if (index >= 0) {
+        // let quantity = cart.getCart[index].quantity;
+        if (cart.getCart[index].quantity >= QUANTITY_SIZE) {
+            toast.warning(homeApp[getcurrentLanguge()].cartAlert.addToCartFaild);
+            return;
+        }
+    }
+    cart.addToCart(it, 1);
+    toast.success(homeApp[getcurrentLanguge()].cartAlert.addToCartSuccess);
 }
 const detail = (id) => {
     item.value = id;
