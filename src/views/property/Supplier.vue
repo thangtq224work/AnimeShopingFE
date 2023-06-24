@@ -218,13 +218,11 @@ const saveToDb = async () => {
   }
 }
 const edit = () => {
-  console.log("save to database : ", obj);
   close();
 }
 const logger = () => {
   nextTick(() => {
     page.value = 1;
-    console.log(pageSize.value);
     getData(0, pageSize.value)
   })
 }

@@ -6,6 +6,7 @@ const homeApp = {
         noData: "No data avaiable",
         outOfStock: "This product is out of stock",
         auth:{
+            usernameInvalid:"Username or password invalid",
             login:"Login",
             username:"Username",
             password:"Password",
@@ -136,6 +137,7 @@ const homeApp = {
         noData: "Không có dữ liệu",
         outOfStock: "Sản phẩm tạm thời hết hàng",
         auth:{
+            usernameInvalid:"Tài khoản hoặc mật khẩu không chính xác",
             login:"Đăng nhập",
             username:"Tên đăng nhập",
             password:"Mật khẩu",

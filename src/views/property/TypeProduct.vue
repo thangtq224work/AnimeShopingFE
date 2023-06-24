@@ -173,7 +173,6 @@ const editItem = (id) => {
 }
 const infor = (id) => {
   router.push({ path: 'category' })
-  console.log(id);
 }
 const newHandler = () => {
   formTitle.value = app[getcurrentLanguge()].property.typeProduct.action.new;
@@ -223,7 +222,6 @@ const edit = () => {
 const logger = () => {
   nextTick(() => {
     page.value = 1;
-    console.log(pageSize.value);
     getData(0, pageSize.value)
   })
 }

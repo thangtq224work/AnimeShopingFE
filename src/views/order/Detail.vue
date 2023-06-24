@@ -1,23 +1,47 @@
 <template>
     <v-dialog v-model="props.show" width="1200" @click:outside="close" persistent no-click-animation>
         <v-card>
-            <v-card-title>
-                Bạn có muốn xác nhận đơn hàng này ?
+            <v-card-title class="order__page__title">
+                {{ app[getcurrentLanguge()].order.detailMessage }}
             </v-card-title>
             <v-card-text>
                 <div>
                     <v-list>
-                        <v-list-item>Mã HD: {{ props.data?.orderCode }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderCode }}: {{ props.data?.orderCode
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderBy }}: {{ props.data?.clientName
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderDate }}: {{
+                            formatDate(props.data?.createAt) }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.address }}: {{ props.data?.address
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.phone }} : {{ props.data?.phone
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.user }}: {{ props.data?.userId
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.description }}: {{ props.data?.description
+                        }}</v-list-item>
+                        <!-- <v-list-item>Mã HD: {{ props.data?.orderCode }}</v-list-item>
                         <v-list-item>Tên KH: {{ props.data?.clientName }}</v-list-item>
                         <v-list-item>Ngày đặt: {{ formatDate(props.data?.createAt) }}</v-list-item>
                         <v-list-item>Địa chỉ : {{ props.data?.address }}</v-list-item>
                         <v-list-item>Điện thoại : {{ props.data?.phone }}</v-list-item>
                         <v-list-item>Tài khoản: {{ props.data?.userId }}</v-list-item>
-                        <v-list-item>Mô tả: {{ props.data?.description }}</v-list-item>
-                        <v-list-item>Khối lượng (ước tính): {{ maxWeight + ' ' + units.gram.name}}</v-list-item>
-                        <v-list-item>Tổng đơn hàng: {{ formatVND(props.data?.totalPrice + props.data?.shippingFee)
+                        <v-list-item>Mô tả: {{ props.data?.description }}</v-list-item> -->
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.weight }}: {{ maxWeight + ' ' +
+                            units.gram.name }}</v-list-item>
+                        <v-list-item class="order__money__data">{{ app[getcurrentLanguge()].order.attribute.total }}: {{
+                            formatVND(props.data?.totalPrice)
                         }}</v-list-item>
-                        <v-list-item>Doanh thu (Ước tính): {{ formatVND(props.data?.totalPrice - income)}}</v-list-item>
+                        <v-list-item class="order__money__data">{{ app[getcurrentLanguge()].order.attribute.shippingFee }}:
+                            {{ formatVND(props.data?.shippingFee)
+                            }}</v-list-item>
+                        <v-list-item class="order__money__data" v-if="props.data.status != orderstatus.WAITING">{{ app[getcurrentLanguge()].order.attribute.serviceFee }}:
+                            {{ formatVND(props.data?.serviceFee | 0)
+                            }}</v-list-item>
+                        <v-list-item class="order__money__data">{{ app[getcurrentLanguge()].order.attribute.income }}: {{
+                            formatVND(props.data?.totalPrice - income -
+                                (props.data.serviceFee | 0)) }}</v-list-item>
                     </v-list>
                 </div>
                 <v-form @submit.prevent ref="form">
@@ -75,7 +99,7 @@
                                         <th class="text-center">
                                             {{ app[getcurrentLanguge()].order.attribute.product.quantity }}
                                         </th>
-                                        <th class="text-center">
+                                        <th class="text-center" v-if="props.data.status == orderstatus.WAITING">
                                             {{ app[getcurrentLanguge()].order.attribute.product.quantityAvailable }}
                                         </th>
                                         <th class="text-center">
@@ -97,7 +121,8 @@
                                         <td class="text-center">{{ item.name }}</td>
                                         <!-- <td class="text-center">{{ formatDate(item.createAt) }}</td> -->
                                         <td class="text-center">{{ item.quantity }}</td>
-                                        <td class="text-center">{{ item.quantityAvailable }}</td>
+                                        <td class="text-center" v-if="props.data.status == orderstatus.WAITING">{{
+                                            item.quantityAvailable }}</td>
                                         <td class="text-center">{{ formatVND(item.originalPrice) }}</td>
                                         <td class="text-center">{{ formatVND(item.sellPrice) }}</td>
                                         <!-- <td class="text-center">
@@ -115,7 +140,9 @@
                     </VRow>
                 </v-form>
                 <v-card-actions class="justify-end">
-                    <v-btn @click="close">close</v-btn>
+                    <v-btn @click="close">
+                        {{ app[getcurrentLanguge()].btn.cancel }}
+                    </v-btn>
                 </v-card-actions>
             </v-card-text>
 
@@ -126,6 +153,7 @@
 import { nextTick } from 'vue';
 import { ref } from 'vue';
 import units from '@/const/unit'
+import orderstatus from '@/const/orderStatus';
 import { requiredNote } from '@/const/ghnConfig';
 import getcurrentLanguge from '@/util/locale';
 import app from '@/i18n/dashboard';
@@ -171,23 +199,33 @@ const close = () => {
 
     })
 };
-const maxWeight = computed(()=>{
+const maxWeight = computed(() => {
     return props.data?.orderDetails.reduce((total, it) => {
         return total + (it.quantity * it.weight);
     }, 0);
 });
 
-const income = computed(()=>{
+const income = computed(() => {
     return props.data?.orderDetails.reduce((total, it) => {
         return total + (it.quantity * it.originalPrice);
     }, 0);
 });
 const nameValidate = [];
 onMounted(() => {
-    console.log(props.data);
     // maxWeight.value = props.data?.orderDetails.reduce((total, it) => {
     //     return total + (it.quantity * it.weight);
     // }, 0);
     // console.log(maxWeight.value);
 });
 </script>
+<style>.order__money__data {
+    color: red;
+    font-weight: bold;
+}
+
+.order__page__title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.75rem;
+    margin-top: 0.5rem;
+}</style>

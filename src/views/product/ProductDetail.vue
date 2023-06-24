@@ -5,9 +5,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 const router = useRouter();
-console.log(router);
-    const back = () =>{
-        console.log(router);
-        router.go(-1);
-    }
+const back = () => {
+    router.go(-1);
+}
 </script>

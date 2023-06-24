@@ -4,7 +4,7 @@ const status = {
     CONFIRMED:1,
     WAITING_SHIPPING:2,
     SHIPPING:3,
-    CANCEL:11,
-    SUCCESS:10,
+    CANCEL:101,
+    SUCCESS:100,
 };
 export default status;

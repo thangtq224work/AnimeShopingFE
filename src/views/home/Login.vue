@@ -6,7 +6,7 @@
                     <p class="login__page__title">{{ homeApp[getcurrentLanguge()].auth.login }}</p>
                 </v-card-title>
                 <v-card-text>
-                    <v-form ref="form">
+                    <v-form ref="form" @submit.prevent>
                         <v-row>
                             <v-col cols="12" class="px-8">
                                 <v-text-field v-model="loginData.username"
@@ -24,7 +24,7 @@
                                 <RouterLink to="/" class="login__page__forget__password">Forget password?</RouterLink>
                             </v-col>
                             <v-col cols="12" class="px-7">
-                                <v-btn block color="blue" text-color="black" class="rounded-xl" @click="loginHandler">{{
+                                <v-btn block color="blue" text-color="black" class="rounded-xl" type="submit" @click="loginHandler">{{
                                     homeApp[getcurrentLanguge()].auth.login }}</v-btn>
                             </v-col>
                             <v-col cols="12" class="px-8 d-flex justify-center">
@@ -80,6 +80,9 @@ const loginHandler = async () => {
             auth.setUserRole(resp.data.data.role);
             const returnUrl = route.query['returnUrl'];
             router.push({ name: returnUrl ? returnUrl : "Home"})
+        }
+        else{
+            toast.warning(homeApp[getcurrentLanguge()].auth.usernameInvalid)
         }
     }).catch(err => {
         console.log(err);

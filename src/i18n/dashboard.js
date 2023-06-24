@@ -111,7 +111,7 @@ const app = {
                 price: "Price",
                 priceSell: "Price sell",
                 images: "Images",
-                quantity:"Quantity"
+                quantity: "Quantity"
             },
             action: {
                 new: "New product",
@@ -126,109 +126,123 @@ const app = {
                 falseVal: "Non-avaiable",
             }
         },
-        discount:{
-            name:"Discount information",
-            attribute:{
-                id:"#",
-                name:"Discount name",
-                status:"Discount status",
-                from:"From",
-                to:"To",
-                amount:"Discount amount",
-                action:"Action",
-                description:"Description",
-                orginalPrice:"Orginal price",
-                priceSell:"Price sell",
-                
+        discount: {
+            name: "Discount information",
+            attribute: {
+                id: "#",
+                name: "Discount name",
+                status: "Discount status",
+                from: "From",
+                to: "To",
+                amount: "Discount amount",
+                action: "Action",
+                description: "Description",
+                orginalPrice: "Orginal price",
+                priceSell: "Price sell",
+
             },
-            action:{
-                detailBtn:"Detail",
-                updateBtn:"Update",
+            action: {
+                detailBtn: "Detail",
+                updateBtn: "Update",
                 new: "New discount",
                 update: "Update discount",
                 newSuccess: "Create discount successfully",
                 updateSuccess: "Update discount successfully",
                 newfaild: "Create discount failded",
-                updatefaild: "Update discount failded",    
+                updatefaild: "Update discount failded",
             },
             status: {
                 trueVal: "Avaiable",
                 falseVal: "Non-avaiable",
-                experied:"Experied"
+                experied: "Experied"
             }
         },
-        order:{
-            tabs:[
-                
+        order: {
+            title: "Order",
+            confirmMessage: "Confirm order",
+            confirm: "Are you sure ?",
+            detailMessage: "Order information",
+            outOfStock: "The products in store is not enough",
+            tabs: [
+
                 {
-                    name:"All",
-                    value:status.ALL,
-                    status:"All"
+                    name: "All",
+                    value: status.ALL,
+                    status: "All"
                 },
                 {
-                    name:"Order waiting",
-                    value:status.WAITING,
-                    status:"waiting"
+                    name: "Order waiting",
+                    value: status.WAITING,
+                    status: "waiting"
                 },
                 {
-                    name:"Order confirmed",
-                    value:status.CONFIRMED,
-                    status:"confirmed"
+                    name: "Order confirmed",
+                    value: status.CONFIRMED,
+                    status: "confirmed"
                 },
                 {
-                    name:"Order waiting shipping",
-                    value:status.WAITING_SHIPPING,
-                    status:"waiting shipping"
+                    name: "Order waiting shipping",
+                    value: status.WAITING_SHIPPING,
+                    status: "waiting shipping"
 
                 },
                 {
-                    name:"Order shipping",
-                    value:status.SHIPPING,
-                    status:"Shipping"
+                    name: "Order shipping",
+                    value: status.SHIPPING,
+                    status: "Shipping"
 
                 },
                 {
-                    name:"Order success",
-                    value:status.SUCCESS,
-                    status:"Success"
+                    name: "Order success",
+                    value: status.SUCCESS,
+                    status: "Success"
                 },
                 {
-                    name:"Order cancel",
-                    value:status.CANCEL,
-                    status:"Cancel"
+                    name: "Order cancel",
+                    value: status.CANCEL,
+                    status: "Cancel"
                 },
             ],
-            attribute:{
-                id:"#",
+            attribute: {
+                id: "#",
                 orderCode: "Order code",
                 orderDate: "Order date",
                 orderBy: "Order by",
                 total: "Total price",
                 customerMoney: "Customer money",
+                address: "Address",
+                phone: "Phone",
+                user: "Username",
+                description: "Description",
                 status: "Status",
+                serviceFee: "Service fee",
+                shippingFee: "Delivery fee",
+                income: "Income (estimated)",
+                weight: "Weight (estimated)",
                 action: "Action",
-                product:{
-                    name:"Name",
-                    price:"Orginal price",
-                    priceSell:"Price sell",
-                    width:"Width",
-                    height:"Height",
-                    weight:"Weight",
-                    length:"Length",
-                    requireNote:"Require note",
-                    note:"Note",
-                    quantity:"Quantity",
-                    quantityAvailable:"Available quantity",
+                product: {
+                    name: "Name",
+                    price: "Orginal price",
+                    priceSell: "Price sell",
+                    width: "Width",
+                    height: "Height",
+                    weight: "Weight",
+                    length: "Length",
+                    requireNote: "Require note",
+                    note: "Note",
+                    quantity: "Quantity",
+                    quantityAvailable: "Available quantity",
                 }
             },
-            btn:{
-                cancel:"Cancel",
-                confirm:"Confirm",
-                success:"Success",
-                shipping:"Delivering",
-                delivery:"Delivery",
-                delivered:"Deliver",
-                detail:"Detail"
+            btn: {
+                cancel: "Cancel",
+                confirm: "Confirm",
+                success: "Success",
+                shipping: "Delivering",
+                delivery: "Delivery",
+                delivered: "Deliver",
+                detail: "Detail",
+                check: "Show service fee"
             }
         },
         networkFaild: "Error networking",
@@ -258,25 +272,24 @@ const app = {
                 quantityNotNull: "The quantity must not be null",
                 quantitSize: "The quantity of product must larger or equal 0",
             },
-            order:{
-                weightNotNull:"The weight must not be null",
-                weightSize:(input,input2) => 
-                {
-                    if(input > input2){
+            order: {
+                weightNotNull: "The weight must not be null",
+                weightSize: (input, input2) => {
+                    if (input > input2) {
                         return `The weight must less than ${input2}`
                     }
                     return `The weight must larger than ${input} and less than ${input2}`
                 },
-                widthNotNull:"The width must not be null",
-                widthSize:(input) => `The width must larger than 0 and less than ${input}`,
-                lengthNotNull:"The length must not be null",
-                lengthSize:(input) => `The length must larger than 0 and less than ${input}`,
-                heightNotNull:"The weight must not be null",
-                heightSize:(input) => `The height must larger than 0 and less than ${input}`,
+                widthNotNull: "The width must not be null",
+                widthSize: (input) => `The width must larger than 0 and less than ${input}`,
+                lengthNotNull: "The length must not be null",
+                lengthSize: (input) => `The length must larger than 0 and less than ${input}`,
+                heightNotNull: "The weight must not be null",
+                heightSize: (input) => `The height must larger than 0 and less than ${input}`,
                 noteSize: (input) => `The note must less than ${input} characters`,
                 requiredNoteNotNull: "Please select required note",
             },
-            discount:{
+            discount: {
                 discountNameSize: "Discount name must be at least 1 characters and largest 100 characters",
                 discountTypeNotNull: "Please select type of discount",
                 discountAmountNotNull: "Please type amount of discount",
@@ -284,7 +297,7 @@ const app = {
                 discountAmountSize2: "Discount amount must be larger than 0",
                 discountStartNotNull: "Please select start date of discount",
                 discountEndNotNull: "Please select end date of discount",
-                
+
             },
             category: {
                 categoryNotNull: "Category must not be null",
@@ -415,7 +428,7 @@ const app = {
                 price: "Giá gốc",
                 priceSell: "Giá bán",
                 images: "Hình ảnh",
-                quantity:"Số lượng"
+                quantity: "Số lượng"
             },
             action: {
                 new: "Tạo mới sản phẩm",
@@ -431,107 +444,121 @@ const app = {
 
             }
         },
-        discount:{
-            name:"Thông tin giảm giá",
-            attribute:{
-                id:"STT",
-                name:"Tên giảm giá",
-                status:"Trạng thái",
-                from:"Bắt đầu",
-                to:"Kết thúc",
-                amount:"Mức giảm",
-                action:"Hành động",
-                description:"Mô tả",
-                orginalPrice:"Giá gốc",
-                priceSell:"Giá bán"
+        discount: {
+            name: "Thông tin giảm giá",
+            attribute: {
+                id: "STT",
+                name: "Tên giảm giá",
+                status: "Trạng thái",
+                from: "Bắt đầu",
+                to: "Kết thúc",
+                amount: "Mức giảm",
+                action: "Hành động",
+                description: "Mô tả",
+                orginalPrice: "Giá gốc",
+                priceSell: "Giá bán"
             },
-            action:{
-                detailBtn:"Chi tiết",
-                updateBtn:"Cập nhật",
+            action: {
+                detailBtn: "Chi tiết",
+                updateBtn: "Cập nhật",
                 new: "Tạo mới giảm giá",
                 update: "Cập nhật giảm giá",
                 newSuccess: "Tạo mới giảm giá thành công",
                 updateSuccess: "Cập nhật giảm giá thành công",
                 newfaild: "Tạo mới giảm giá thất bại",
-                updatefaild: "Cập nhật giảm giá thất bại",    
+                updatefaild: "Cập nhật giảm giá thất bại",
             },
             status: {
                 trueVal: "Khả dụng",
                 falseVal: "Không khả dụng",
-                experied:"Hết hạn"
+                experied: "Hết hạn"
             }
         },
-        
-        order:{
-            tabs:[
-                
+
+        order: {
+            title: "Đơn hàng",
+            confirmMessage: "Xác thực đơn hàng",
+            confirm: "Xác nhận yêu cầu?",
+            detailMessage: "Thông tin đơn hàng",
+            outOfStock: "Sản phẩm trong kho không đủ",
+            tabs: [
+
                 {
-                    name:"Tất cả",
-                    value:status.ALL,
-                    status:"Tất cả"
+                    name: "Tất cả",
+                    value: status.ALL,
+                    status: "Tất cả"
                 },
                 {
-                    name:"Hóa đơn chờ",
-                    value:status.WAITING,
-                    status:"Chờ xác nhận"
+                    name: "Hóa đơn chờ",
+                    value: status.WAITING,
+                    status: "Chờ xác nhận"
                 },
                 {
-                    name:"Hóa đơn đã xác nhận",
-                    value:status.CONFIRMED,
-                    status:"Đã xác nhận"
+                    name: "Hóa đơn đã xác nhận",
+                    value: status.CONFIRMED,
+                    status: "Đã xác nhận"
                 },
                 {
-                    name:"Hóa đơn chờ giao hàng",
-                    value:status.WAITING_SHIPPING,
-                    status:"Chờ giao hàng"
+                    name: "Hóa đơn chờ giao hàng",
+                    value: status.WAITING_SHIPPING,
+                    status: "Chờ giao hàng"
                 },
                 {
-                    name:"Hóa đơn đang giao",
-                    value:status.SHIPPING,
-                    status:"Đang giao"
+                    name: "Hóa đơn đang giao",
+                    value: status.SHIPPING,
+                    status: "Đang giao"
                 },
                 {
-                    name:"Hóa đơn đã giao thành công",
-                    value:status.SUCCESS,
-                    status:"Thành công"
+                    name: "Hóa đơn đã giao thành công",
+                    value: status.SUCCESS,
+                    status: "Thành công"
                 },
                 {
-                    name:"Hóa đơn bị hủy",
-                    value:status.CANCEL,
-                    status:"Bị hủy"
+                    name: "Hóa đơn bị hủy",
+                    value: status.CANCEL,
+                    status: "Bị hủy"
                 },
             ],
-            attribute:{
-                id:"#",
+            attribute: {
+                id: "#",
                 orderCode: "Mã hóa đơn",
                 orderDate: "Ngày đặt hàng",
                 orderBy: "Người đặt hàng",
                 total: "Tổng đơn hàng",
                 customerMoney: "Khách hàng trả",
+                address: "Địa chỉ",
+                phone: "Số điện thoại",
+                user: "Tài khoản",
+                description: "Mô tả",
                 status: "Trạng thái",
+                serviceFee: "Phí dịch vụ",
+                shippingFee: "Phí vận chuyển",
+                income: "Doanh thu ( ước tính )",
+                weight: "Khối lượng ( ước tính )",
                 action: "Hành động",
-                product:{
-                    name:"Tên SP",
-                    price:"Giá gốc",
-                    priceSell:"Giá bán",
-                    quantity:"Số lượng",
-                    quantityAvailable:"Số lượng trong kho",
-                    width:"Chiều rộng",
-                    height:"Chiều cao",
-                    weight:"Cân nặng",
-                    length:"Chiều dài",
-                    requireNote:"Ghi chú nhận hàng",
-                    note:"Ghi chú",
+                product: {
+                    name: "Tên SP",
+                    price: "Giá gốc",
+                    priceSell: "Giá bán",
+                    quantity: "Số lượng",
+                    quantityAvailable: "Số lượng trong kho",
+                    width: "Chiều rộng",
+                    height: "Chiều cao",
+                    weight: "Cân nặng",
+                    length: "Chiều dài",
+                    requireNote: "Ghi chú nhận hàng",
+                    note: "Ghi chú",
                 }
             },
-            btn:{
-                cancel:"Hủy đơn ",
-                confirm:"Xác nhận",
-                success:"Xác nhận thành công",
-                shipping:"Đang giao hàng",
-                delivered:"Đã giao hàng",
-                delivery:"Giao hàng",
-                detail:"Chi tiết"
+            btn: {
+                cancel: "Hủy đơn ",
+                confirm: "Xác nhận",
+                success: "Xác nhận thành công",
+                shipping: "Đang giao hàng",
+                delivered: "Đã giao hàng",
+                delivery: "Giao hàng",
+                detail: "Chi tiết",
+                check: "Kiểm tra chi phí"
             }
 
         },
@@ -564,26 +591,26 @@ const app = {
                 quantityNotNull: "Số lượng không được bỏ trống",
                 quantitSize: "Số lượng phải lớn hơn hoặc bằng 0",
             },
-            
-            order:{
-                weightNotNull:"Cân nặng không được bỏ trống",
-                weightSize:(input,input2) => {
-                    if(input > input2){
+
+            order: {
+                weightNotNull: "Cân nặng không được bỏ trống",
+                weightSize: (input, input2) => {
+                    if (input > input2) {
                         return `Cân nặng phải nhỏ hơn ${input2}`
                     }
                     return `Cân nặng phải lớn hơn ${input} và nhỏ hơn ${input2}`
                 },
-                widthNotNull:"Chiều rộng không được bỏ trống",
-                widthSize:(input) => `Chiều rộng phải lớn hơn 0 và nhỏ hơn ${input}`,
-                lengthNotNull:"Chiều dài không được bỏ trống",
-                lengthSize:(input) => `Chiều dài phải lớn hơn 0 và nhỏ hơn ${input}`,
-                heightNotNull:"Chiều cao  không được bỏ trống",
-                heightSize:(input) => `Chiều cao phải lớn hơn 0 và nhỏ hơn ${input}`,
+                widthNotNull: "Chiều rộng không được bỏ trống",
+                widthSize: (input) => `Chiều rộng phải lớn hơn 0 và nhỏ hơn ${input}`,
+                lengthNotNull: "Chiều dài không được bỏ trống",
+                lengthSize: (input) => `Chiều dài phải lớn hơn 0 và nhỏ hơn ${input}`,
+                heightNotNull: "Chiều cao  không được bỏ trống",
+                heightSize: (input) => `Chiều cao phải lớn hơn 0 và nhỏ hơn ${input}`,
                 noteSize: (input) => `Ghi chú phải nhỏ hơn ${input} kí tự`,
                 requiredNoteNotNull: "Vui lòng chọn ghi chú",
-                
+
             },
-            discount:{
+            discount: {
                 discountNameSize: "Tên khuyến mại từ 1 - 100 kí tự",
                 discountTypeNotNull: "Vui lòng chọn loại khuyến mại",
                 discountAmountNotNull: "Vui lòng nhập mức khuyến mại",
@@ -591,22 +618,22 @@ const app = {
                 discountAmountSize2: "Mức khuyến mại phải lớn hơn 0",
                 discountStartNotNull: "Vui lòng chọn ngày bắt đầu",
                 discountEndNotNull: "Vui lòng chọn ngày kết thúc",
-                
+
             },
             category: {
                 categoryNotNull: "Danh mục không được bỏ trống",
                 statusNotNull: "Trạng thái không được bỏ trống"
             },
             material: {
-                materialNotNull: "Nhà cung cấp không được bỏ trống", 
+                materialNotNull: "Nhà cung cấp không được bỏ trống",
                 statusNotNull: "Trạng thái không được bỏ trống"
             },
             supplier: {
-                supplierNotNull: "Nhà cung cấp không được bỏ trống", 
+                supplierNotNull: "Nhà cung cấp không được bỏ trống",
                 statusNotNull: "Trạng thái không được bỏ trống"
             },
             typeProduct: {
-                typeProductNotNull: "Loại sản phẩm không được bỏ trống", 
+                typeProductNotNull: "Loại sản phẩm không được bỏ trống",
                 statusNotNull: "Trạng thái không được bỏ trống"
             }
         }

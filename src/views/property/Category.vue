@@ -203,10 +203,8 @@ const saveToDb = async () => {
         })
     } else {
         await save(currentItem.value).then(resp => {
-            console.log(resp.status);
             if (resp.status >= 200 && resp.status < 300) {
                 getData(page.value - 1, pageSize.value);
-                console.log(app[getcurrentLanguge()].property.category.action.newSuccess);
                 toast.info(app[getcurrentLanguge()].property.category.action.newSuccess);
                 close();
             }
@@ -220,12 +218,10 @@ const saveToDb = async () => {
 }
 
 const edit = () => {
-    console.log("save to database : ", obj);
     close();
 }
 const logger = () => {
     nextTick(() => {
-        console.log(pageSize.value);
         page.value = 1;
         getData(0, pageSize.value)
     })

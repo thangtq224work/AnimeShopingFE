@@ -152,7 +152,6 @@ const editItem = (id) => {
 }
 const infor = (id) => {
   router.push({ path: 'category' })
-  console.log(id);
 }
 const newHandler = () => {
   formTitle.value = app[getcurrentLanguge()].property.property.action.new;
@@ -192,13 +191,11 @@ const saveToDb = async () => {
 }
 
 const edit = () => {
-  console.log("save to database : ", obj);
   close();
 }
 const logger = () => {
   nextTick(() => {
     page.value = 1;
-    console.log(pageSize.value);
     getData(0, pageSize.value)
   })
 }

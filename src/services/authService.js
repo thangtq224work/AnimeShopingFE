@@ -9,7 +9,6 @@ const login = (login) => {
 }
 
 const refresh = (token) => {
-    console.log("reff");
     return Axios.post('/auth/refresh', token);
 }
 

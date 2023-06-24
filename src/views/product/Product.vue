@@ -205,13 +205,11 @@ const getData = (p, ps) => {
     })
 }
 const editItem = (i) => {
-    console.log(i);
     currentItem.value = Object.assign({}, JSON.parse(JSON.stringify(i)));
     dialog.value = true;
 }
 const infor = (id) => {
     router.push({ name: 'product-detail', params: { 'id': id } })
-    console.log(id);
 }
 const newHandler = () => {
     currentItem.value = {};
@@ -222,7 +220,6 @@ const saveToDb = async (item, images) => {
     castObject(item)
     item.status = item.status ? 1 : 0;
     if (item.id) {
-        console.log(item);
         await update(item).then(resp => {
             if (resp.status >= 200 && resp.status < 300) {
 
@@ -253,7 +250,6 @@ const saveToDb = async (item, images) => {
         })
     } else {
         await save(item).then((resp) => {
-            console.log(resp);
             if (resp.status >= 200 && resp.status < 300) {
                 if (images.length > 0) {
                     return uploadImage(resp.data.id, images).then((resp) => {
@@ -272,7 +268,6 @@ const saveToDb = async (item, images) => {
                 toast.error(app[getcurrentLanguge()].product.action.newfaild);
             }
         }).catch((err) => {
-            console.log(err);
             toast.error(app[getcurrentLanguge()].networkFaild);
         })
     }

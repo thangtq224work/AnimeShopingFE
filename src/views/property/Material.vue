@@ -174,7 +174,6 @@ const editItem = (item) => {
 }
 const infor = (id) => {
   router.push({ path: 'category' })
-  console.log(id);
 }
 const newHandler = () => {
   formTitle.value = app[getcurrentLanguge()].property.material.action.new;

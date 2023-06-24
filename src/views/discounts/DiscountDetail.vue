@@ -175,7 +175,6 @@ const categories = ref([]);
 const init = async () => {
     await getById(route.params.id).then((resp) => {
         if (resp.data.code >= 200 && resp.data.code < 300) {
-            // console.log(resp.data.data);
             discount.value = resp.data.data;
         } else {
             toast.warning("Có lỗi xảy ra")

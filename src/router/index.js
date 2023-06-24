@@ -162,11 +162,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  console.log("ac");
   if (!authStore().isLogin) {
     await authStore().init();
   }
   if (to.name !== 'login' && to.meta.requiresAuth && !authStore().isLogin) {
-    next({ path: getcurrentLanguge() == 'en' ? '/login' : '/dang-nhap', query: { 'returnUrl': to.name } });
+    return next({ path: getcurrentLanguge() == 'en' ? '/login' : '/dang-nhap', query: { 'returnUrl': to.name } });
   }
   const roleRequire = to.meta.authorire;
   const currentUser = await authStore().getUserRole();
@@ -177,14 +178,16 @@ router.beforeEach(async (to, from, next) => {
       })
     });
     if (checkRole) {
-      next();
+      return next();
     }
-    else {
-      return next(getcurrentLanguge() == 'en' ? '/forbiden' : '/khong-co-quyen-truy-cap');
+    else if(to.name != 'forbiden') {
+      next(getcurrentLanguge() == 'en' ? '/forbiden' : '/khong-co-quyen-truy-cap'); // row 183
+      // return will stop this below code
+      return ;
     }
   }
   else {
-    next();
+    return next();
   }
 
 })

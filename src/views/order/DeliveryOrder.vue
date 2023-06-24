@@ -1,24 +1,33 @@
 <template>
     <v-dialog v-model="props.xacnhan" width="1200" @click:outside="close" persistent no-click-animation>
         <v-card>
-            <v-card-title>
-                Bạn có muốn xác nhận đơn hàng này ?
+            <v-card-title class="order__page__title">
+                {{ app[getcurrentLanguge()].order.detailMessage }}
             </v-card-title>
             <v-card-text>
                 <div>
                     <v-list>
                         {{ props.order }}
-                        <v-list-item>Mã HD: {{ props.order.orderCode }}</v-list-item>
-                        <v-list-item>Tên KH: {{ props.order.clientName }}</v-list-item>
-                        <v-list-item>Ngày đặt: {{ formatDate(props.order.createAt) }}</v-list-item>
-                        <v-list-item>Địa chỉ : {{ props.order.address }}</v-list-item>
-                        <v-list-item>Điện thoại : {{ props.order.phone }}</v-list-item>
-                        <v-list-item>Tài khoản: {{ props.order.userId }}</v-list-item>
-                        <v-list-item>Mô tả: {{ props.order.description }}</v-list-item>
-                        <v-list-item class="order__money__data">Tổng đơn hàng: {{ formatVND(props.order.totalPrice +
-                            props.order.shippingFee) }}</v-list-item>
-                        <v-list-item class="order__money__data">Chi phí dịch vụ (bên shop chi trả): {{ formatVND(serviceFee
-                            | 0) }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderCode }}: {{ props.order.orderCode
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderBy }}: {{ props.order.clientName
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.orderDate }}: {{
+                            formatDate(props.order.createAt) }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.address }}: {{ props.order.address
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.phone }} : {{ props.order.phone
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.user }}: {{ props.order.userId
+                        }}</v-list-item>
+                        <v-list-item>{{ app[getcurrentLanguge()].order.attribute.description }}: {{ props.order.description
+                        }}</v-list-item>
+                        <v-list-item class="order__money__data">{{ app[getcurrentLanguge()].order.attribute.total }}: {{
+                            formatVND(props.order.totalPrice +
+                                props.order.shippingFee) }}</v-list-item>
+                        <v-list-item class="order__money__data">{{ app[getcurrentLanguge()].order.attribute.serviceFee }}:
+                            {{ formatVND(serviceFee
+                                | 0) }}</v-list-item>
                     </v-list>
                 </div>
                 <v-form @submit.prevent ref="form">
@@ -61,11 +70,16 @@
                                 :rules="noteValidate">
                             </v-textarea>
                         </v-col>
-                        <v-btn @click="loadServiceFee">Kiểm tra chi phí</v-btn>
+                        <v-btn class="ms-0" @click="loadServiceFee" color="grey-lighten-1">{{
+                            app[getcurrentLanguge()].order.btn.check }}</v-btn>
                     </v-row>
                     <v-card-actions class="justify-end">
-                        <v-btn @click="close">close</v-btn>
-                        <v-btn @click="delivery">Confirm</v-btn>
+                        <v-btn @click="close">
+                            {{ app[getcurrentLanguge()].btn.cancel }}
+                        </v-btn>
+                        <v-btn @click="delivery">
+                            {{ app[getcurrentLanguge()].btn.confirm }}
+                        </v-btn>
                     </v-card-actions>
                 </v-form>
             </v-card-text>
@@ -225,9 +239,14 @@ const delivery = async () => {
     if (!valid) {
         return;
     }
+    if (!confirm(app[getcurrentLanguge()].order.confirm)) {
+        return;
+    }
     let tmp = build(props.order, item.value);
-    item.value = Object.assign({}, defaultItem);
-    emits('delivery', tmp);
+    nextTick(() => {
+        emits('delivery', tmp);
+        item.value = Object.assign({}, defaultItem);
+    })
 }
 
 const build = (item, size) => {
