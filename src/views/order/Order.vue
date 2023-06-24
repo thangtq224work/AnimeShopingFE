@@ -27,7 +27,7 @@
                 {{ app[getcurrentLanguge()].product.title }}
             </h2>
         </VRow>
-        <v-tabs class="ma-6" v-model="tab">
+        <v-tabs class="ma-6" v-model="tab" @update:model-value="changeTab">
             <v-tab v-for="item in tabs" :value="item.value">{{ item.name }}</v-tab>
 
             <!-- <v-tab value="0">Tất cả</v-tab>
@@ -101,19 +101,20 @@
                                 <td class="text-center">{{ item.orderCode }}</td>
                                 <td class="text-center">{{ formatDate(item.createAt) }}</td>
                                 <td class="text-center">{{ item.userId }}</td>
-                                <td class="text-center">{{ formatVND(item.totalPrice) }}</td>
+                                <td class="text-center">{{ formatVND(item.totalPrice + item.shippingFee) }}</td>
                                 <td class="text-center">{{ formatVND(item.customerMoney | 0) }}</td>
-                                <td class="text-center">{{ status.get(item.status) }}  </td>
-                                <!-- <td class="text-center">{{ item.status == 1 ? app[getcurrentLanguge()].product.status.trueVal
-                                : app[getcurrentLanguge()].product.status.falseVal }}</td> -->
+                                <td class="text-center">{{ status.get(item.status) }} </td>
                                 <td class="text-center">
-                                    <v-icon class="btn_icon" size="small" @click="editItem(item)" title="edit">
-                                        mdi-pencil
-                                    </v-icon>
-                                    <v-icon class="btn_icon" size="small" @click="infor(item.id)">
-                                        mdi-format-horizontal-align-right
-                                    </v-icon>
+                                    <v-btn v-if="item.status == orderstatus.WAITING"
+                                        @click="confirmOrderHandler(item.id, index)">{{ app[getcurrentLanguge()].order.btn.confirm
+                                        }}</v-btn>
+                                    <v-btn v-if="item.status == orderstatus.CONFIRMED" @click="confor(item)">{{
+                                        app[getcurrentLanguge()].order.btn.delivery }}</v-btn>
+                                    <v-btn @click="detailHandler(item)">{{ app[getcurrentLanguge()].order.btn.detail
+                                    }}</v-btn>
+                                    <v-btn>{{ app[getcurrentLanguge()].order.btn.cancel }}</v-btn>
                                 </td>
+                                <!-- @click="confirmOrderHandler(item.id, index)" -->
 
                             </tr>
                         </tbody>
@@ -123,26 +124,120 @@
         </v-card-text>
 
     </VCard>
+    <Detail :show="detailShow" @close="detailShow = false" :data="order"></Detail>
+    <DeliveryOrder :xacnhan="xacnhan" @close="xacnhan = false" @delivery="deliveryOrderHandler" :order="order"></DeliveryOrder>
 </template>
 <script setup>
 import app from '@/i18n/dashboard';
 import getcurrentLanguge from '@/util/locale';
 import { ref } from 'vue';
-import { getOrder } from '@/services/orderSerivce'
+import { getOrder, confirmOrder, deliveryOrder } from '@/services/orderSerivce'
 import { onMounted } from 'vue';
 import { formatVND } from '@/util/formatVND';
 import { formatDate } from '@/util/dateformat';
+import DeliveryOrder from './DeliveryOrder.vue';
+import orderstatus from '@/const/orderStatus';
+import { useToast } from 'vue-toastification';
+import { watch } from 'vue';
+import Detail from './Detail.vue';
+const toast = useToast();
 const status = ref(new Map());
 const orders = ref(null);
 const tab = ref(-1);
 const filter = ref({});
 let tabs = app[getcurrentLanguge()].order.tabs;
+const order = ref(null);
+const xacnhan = ref(false);
+const detailShow = ref(false);
 const filters = () => {
 
 };
+const confor = (item) => {
+    xacnhan.value = true;
+    order.value = JSON.parse(JSON.stringify(item));
+}
+
+const detailHandler = (item) => {
+    order.value = JSON.parse(JSON.stringify(item));
+    detailShow.value = true;
+}
+const confirmOrderHandler = async (id, index) => {
+    if (!confirm("Xác thực ")) {
+        return;
+    }
+    await confirmOrder(id).then(resp => {
+        if (resp.data.code >= 200 && resp.data.code < 300) {
+            if (tab.value == orderstatus.ALL) {
+                orders.value.data[index].status = orderstatus.CONFIRMED;
+            } else {
+                orders.value.data.splice(index, 1);
+            }
+
+            toast.success("Xác nhận oke");
+        }
+    })
+}
+const deliveryOrderHandler = async (item) => {
+    console.log(item);
+    await deliveryOrder(item).then(resp => {
+        if (resp.data.code >= 200 && resp.data.code < 300) {
+            let index = findIndex(item.orderId);
+            if (tab.value == orderstatus.ALL) {
+                orders.value.data[index].status = orderstatus.WAITING_SHIPPING;
+            } else {
+                orders.value.data.splice(index, 1);
+            }
+        } else {
+            toast.error("Có lỗi xảy ra");
+        }
+    }).finally(() => {
+        xacnhan.value = false;
+    })
+}
+const findIndex = (id) => {
+    return orders.value.data.findIndex(item => {
+        return item.id == id;
+    })
+}
+// const build = (item) => {
+//     let [province, district, ward] = item.addressCode.split(",");
+//     let total = (item.totalPrice + item.shippingFee);
+//     let orderGhn = {
+//         clientOrderCode: item.orderCode,
+//         toName: item.clientName,
+//         toPhone: item.phone,
+//         toAddress: item.address,
+//         toWardCode: ward,
+//         districtId: district,
+//         codAmount: total,
+//         insuranceValue: total,
+//         serviceTypeId: 2, // ghn test just accepted serviceTypeId = 2;
+//         items: item.orderDetails.reduce((arr, i) => {
+//             arr.push({
+//                 name: i.name,
+//                 quantity: i.quantity,
+//                 price: i.sellPrice
+//             });
+//             return arr;
+//         }, [])
+//     }
+//     console.log(orderGhn);
+// }
+const changeTab = async () => {
+    await getOrder(tab.value).then((resp) => {
+        if (resp.data.code >= 200 && resp.data.code < 300) {
+            orders.value = resp.data.data;
+        }
+    });
+}
 const reset = () => {
 
 };
+watch(() => order.value, (newV) => {
+    if (!xacnhan.value && !detailShow.value) {
+        order.value = null;
+    }
+})
 onMounted(async () => {
     await getOrder().then((resp) => {
         if (resp.data.code >= 200 && resp.data.code < 300) {

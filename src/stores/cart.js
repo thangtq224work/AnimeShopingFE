@@ -27,7 +27,7 @@ const cartStore = defineStore("cart", () => {
         if (index == -1) {
             return false;
         }
-        console.log(id,quantity,index);
+        // console.log(id,quantity,index);
         cart.value[index].quantity = Number(quantity);
         updateCart();
         return true;

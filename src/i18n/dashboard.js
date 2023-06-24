@@ -173,7 +173,7 @@ const app = {
                 {
                     name:"Order confirmed",
                     value:status.CONFIRMED,
-                    status:"waiting"
+                    status:"confirmed"
                 },
                 {
                     name:"Order waiting shipping",
@@ -207,6 +207,28 @@ const app = {
                 customerMoney: "Customer money",
                 status: "Status",
                 action: "Action",
+                product:{
+                    name:"Name",
+                    price:"Orginal price",
+                    priceSell:"Price sell",
+                    width:"Width",
+                    height:"Height",
+                    weight:"Weight",
+                    length:"Length",
+                    requireNote:"Require note",
+                    note:"Note",
+                    quantity:"Quantity",
+                    quantityAvailable:"Available quantity",
+                }
+            },
+            btn:{
+                cancel:"Cancel",
+                confirm:"Confirm",
+                success:"Success",
+                shipping:"Delivering",
+                delivery:"Delivery",
+                delivered:"Deliver",
+                detail:"Detail"
             }
         },
         networkFaild: "Error networking",
@@ -235,6 +257,24 @@ const app = {
                 statusNotNull: "The status must not be null",
                 quantityNotNull: "The quantity must not be null",
                 quantitSize: "The quantity of product must larger or equal 0",
+            },
+            order:{
+                weightNotNull:"The weight must not be null",
+                weightSize:(input,input2) => 
+                {
+                    if(input > input2){
+                        return `The weight must less than ${input2}`
+                    }
+                    return `The weight must larger than ${input} and less than ${input2}`
+                },
+                widthNotNull:"The width must not be null",
+                widthSize:(input) => `The width must larger than 0 and less than ${input}`,
+                lengthNotNull:"The length must not be null",
+                lengthSize:(input) => `The length must larger than 0 and less than ${input}`,
+                heightNotNull:"The weight must not be null",
+                heightSize:(input) => `The height must larger than 0 and less than ${input}`,
+                noteSize: (input) => `The note must less than ${input} characters`,
+                requiredNoteNotNull: "Please select required note",
             },
             discount:{
                 discountNameSize: "Discount name must be at least 1 characters and largest 100 characters",
@@ -470,6 +510,28 @@ const app = {
                 customerMoney: "Khách hàng trả",
                 status: "Trạng thái",
                 action: "Hành động",
+                product:{
+                    name:"Tên SP",
+                    price:"Giá gốc",
+                    priceSell:"Giá bán",
+                    quantity:"Số lượng",
+                    quantityAvailable:"Số lượng trong kho",
+                    width:"Chiều rộng",
+                    height:"Chiều cao",
+                    weight:"Cân nặng",
+                    length:"Chiều dài",
+                    requireNote:"Ghi chú nhận hàng",
+                    note:"Ghi chú",
+                }
+            },
+            btn:{
+                cancel:"Hủy đơn ",
+                confirm:"Xác nhận",
+                success:"Xác nhận thành công",
+                shipping:"Đang giao hàng",
+                delivered:"Đã giao hàng",
+                delivery:"Giao hàng",
+                detail:"Chi tiết"
             }
 
         },
@@ -501,6 +563,25 @@ const app = {
                 statusNotNull: "Trạng thái không được bỏ trống",
                 quantityNotNull: "Số lượng không được bỏ trống",
                 quantitSize: "Số lượng phải lớn hơn hoặc bằng 0",
+            },
+            
+            order:{
+                weightNotNull:"Cân nặng không được bỏ trống",
+                weightSize:(input,input2) => {
+                    if(input > input2){
+                        return `Cân nặng phải nhỏ hơn ${input2}`
+                    }
+                    return `Cân nặng phải lớn hơn ${input} và nhỏ hơn ${input2}`
+                },
+                widthNotNull:"Chiều rộng không được bỏ trống",
+                widthSize:(input) => `Chiều rộng phải lớn hơn 0 và nhỏ hơn ${input}`,
+                lengthNotNull:"Chiều dài không được bỏ trống",
+                lengthSize:(input) => `Chiều dài phải lớn hơn 0 và nhỏ hơn ${input}`,
+                heightNotNull:"Chiều cao  không được bỏ trống",
+                heightSize:(input) => `Chiều cao phải lớn hơn 0 và nhỏ hơn ${input}`,
+                noteSize: (input) => `Ghi chú phải nhỏ hơn ${input} kí tự`,
+                requiredNoteNotNull: "Vui lòng chọn ghi chú",
+                
             },
             discount:{
                 discountNameSize: "Tên khuyến mại từ 1 - 100 kí tự",
