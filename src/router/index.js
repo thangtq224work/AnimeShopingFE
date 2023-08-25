@@ -12,6 +12,11 @@ import authStore from '@/stores/auth'
 import roles from '@/stores/roles'
 import Discount from '@/views/discounts/Discount.vue'
 import DiscountDetail from '@/views/discounts/DiscountDetail.vue'
+import Statistical from '@/views/statistical/Statistical.vue'
+import MyInfor from '@/views/home/MyInfor.vue'
+import MyInforById from '@/views/home/MyInforById.vue'
+import Register from '@/views/home/Register.vue'
+import RegisterConfirm from '@/views/home/Register.vue'
 // let auth = authStore();  // have error
 const routes = [
   {
@@ -43,7 +48,13 @@ const routes = [
         alias: '/thong-tin',
         meta: { requiresAuth: true },
         name: 'contact',
-        component: HomePage,
+        component: MyInfor,
+      },
+      {
+        path: '/thong-tin/:id',
+        meta: { requiresAuth: true },
+        name: 'contactId',
+        component: MyInforById,
       },
       {
         path: '/product/:id',
@@ -73,6 +84,12 @@ const routes = [
         name: 'material',
         meta: { authorire: [roles.USER, roles.ADMIN], requiresAuth: true },
         component: () => import('@/views/property/Material.vue'),
+      },
+      {
+        path: '/statistical',
+        alias: ['/quan-ly', '/manager','/thong-ke'],
+        name: 'statistical',
+        component: Statistical,
       },
       {
         path: '/discount',
@@ -147,6 +164,19 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+  },
+  {
+    alias: "/dang-ki",
+    path: '/register',
+    name: 'register',
+    component: Register,
+  },
+  
+  {
+    alias: "/dang-ki/xac-thuc",
+    path: '/register/confirm',
+    name: 'registerConfirm',
+    component: RegisterConfirm,
   },
   {
     alias: "/khong-co-quyen-truy-cap",

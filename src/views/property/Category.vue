@@ -81,11 +81,12 @@
             </v-card-title>
 
             <v-card-text>
-                <v-form ref="form">
+                <v-form ref="form" @submit.prevent>
                     <v-row>
                         <v-col cols="12">
                             <v-text-field v-model="currentItem.name"
-                                :label="app[getcurrentLanguge()].property.category.attribute.name" :rules="nameValidate"></v-text-field>
+                                :label="app[getcurrentLanguge()].property.category.attribute.name"
+                                :rules="nameValidate"></v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <v-radio-group v-model="currentItem.status" inline :rules="statusValidate">
@@ -94,18 +95,19 @@
                             </v-radio-group>
                         </v-col>
                     </v-row>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue-darken-1" variant="text" @click="close">
+                            {{ app[getcurrentLanguge()].btn.cancel }}
+                        </v-btn>
+                        <v-btn color="blue-darken-1" type="submit" variant="text" @click="saveToDb">
+                            {{ app[getcurrentLanguge()].btn.confirm }}
+                        </v-btn>
+                    </v-card-actions>
                 </v-form>
             </v-card-text>
 
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue-darken-1" variant="text" @click="close">
-                    {{ app[getcurrentLanguge()].btn.cancel }}
-                </v-btn>
-                <v-btn color="blue-darken-1" variant="text" @click="saveToDb">
-                    {{ app[getcurrentLanguge()].btn.confirm }}
-                </v-btn>
-            </v-card-actions>
+
         </v-card>
     </v-dialog>
 </template>
@@ -136,16 +138,16 @@ let defaultItem = {
     status: true
 };
 const nameValidate = [
-    (value)=>{
-        if(value) return true;
+    (value) => {
+        if (value) return true;
         return app[getcurrentLanguge()].validate.category.categoryNotNull;
     }
 ]
 const statusValidate = [
-  (value) => {
-    if (!!value || value == false) return true;
-    return app[getcurrentLanguge()].validate.category.statusNotNull;
-  }
+    (value) => {
+        if (!!value || value == false) return true;
+        return app[getcurrentLanguge()].validate.category.statusNotNull;
+    }
 ];
 const onClickHandler = (p) => {
     getData(page.value - 1, pageSize.value)
@@ -175,16 +177,16 @@ const infor = (id) => {
     console.log(id);
 }
 const newHandler = () => {
-    currentItem.value = Object.assign({},defaultItem.value);
+    currentItem.value = Object.assign({}, defaultItem);
     formTitle.value = app[getcurrentLanguge()].property.category.action.new;
     dialog.value = true;
 }
 
 const saveToDb = async () => {
-    const {valid} = await form.value.validate();
-    if(!valid){
+    const { valid } = await form.value.validate();
+    if (!valid) {
         return
-    } 
+    }
     if (currentItem.value.id) {
         await update(currentItem.value).then(resp => {
             if (resp.status >= 200 && resp.status < 300) {

@@ -205,7 +205,6 @@ const getData = async () => {
             properties.value = resp.data.data;
             getState();
         } else {
-        console.log(resp.data);
             toast.warning("Có lỗi xảy ra");
         }
 

@@ -1,4 +1,5 @@
 import { QUANTITY_SIZE } from "@/const/validate";
+import { USERNAME_MIN_LENGTH,USERNAME_MAX_LENGTH,PASSWORD_MIN_LENGTH,PASSWORD_MAX_LENGTH } from "@/const/validate";
 const homeApp = {
     en: {
         lang: "English",
@@ -8,11 +9,28 @@ const homeApp = {
         auth:{
             usernameInvalid:"Username or password invalid",
             login:"Login",
+            register:"Register",
+            email:"Email",
+            fullname:"Full name",
+            phone:"Phone",
+            repassword:"Repassword",
             username:"Username",
             password:"Password",
+            messageRegisterSuccess:"Register successfully",
+            messageRegisterFail:"Confirm faild. try again.",
             validate:{
                 usernameNotNull: "Username must not be null",
                 passwordNotNull: "Password must not be null",
+                fullnameNotNull: "Fullname must not be null",
+                repasswordInvalid:"Repassword not match",
+                emailInvalid:"Email invalid",
+                phoneInvalid:"Phone invalid",
+                usernameInvalid:`Username must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters`,
+                passwordInvalid:`Password must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters`,
+                fullnameInvalid:`Fullname must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters`,
+                usernameOrEmailUsed:"Username or email already used",
+                registerSuccess:"We have sent a message to your email. please confirm to complete the registeration",
+
             }
         },
         cartPage:{
@@ -139,11 +157,28 @@ const homeApp = {
         auth:{
             usernameInvalid:"Tài khoản hoặc mật khẩu không chính xác",
             login:"Đăng nhập",
+            register:"Đăng kí",
+            email:"Email",
+            fullname:"Họ tên",
+            phone:"Số điện thoại",
+            repassword:"Nhập lại mật khẩu",
             username:"Tên đăng nhập",
             password:"Mật khẩu",
+            messageRegisterSuccess:"Đăng kí thành công",
+            messageRegisterFail:"Xác thực đăng kí thất bại do yêu cầu đã hết hạn",
             validate:{
                 usernameNotNull: "Vui lòng nhập tên đăng nhập",
                 passwordNotNull: "Vui lòng nhập mật khẩu",
+                fullnameNotNull: "Vui lòng nhập họ tên",
+                repasswordInvalid:"Mật khẩu xác nhận không khớp",
+                emailInvalid:"Email không hợp lệ",
+                phoneInvalid:"Số điện thoại không hợp lê",
+                usernameInvalid:`Tên đăng nhập từ ${USERNAME_MIN_LENGTH} đến ${USERNAME_MAX_LENGTH} kí tự`,
+                passwordInvalid:`Mật khẩu từ ${USERNAME_MIN_LENGTH} đến ${USERNAME_MAX_LENGTH} kí tự`,
+                fullnameInvalid:`Họ tên từ ${USERNAME_MIN_LENGTH} đến ${USERNAME_MAX_LENGTH} kí tự`,
+                usernameOrEmailUsed:"Tên đăng nhập hoặc email đã được sử dụng",
+                registerSuccess:"Chúng tôi đã gửi thư đến email của bạn. vui lòng xác nhận để hoàn tất đăng ký"
+
             }
         },
         

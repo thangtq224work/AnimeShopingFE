@@ -1,28 +1,28 @@
 <template>
     <p class="cart__infor my-10">
         <!-- Bạn đang có {{ props.cart?.length || 0 }} sản phẩm trong giỏ hàng -->
-        {{ homeApp[getcurrentLanguge()].cartPage.cartProduct(props.cart?.length || 0 ) }}
+        {{ homeApp[lang].cartPage.cartProduct(props.cart?.length || 0 ) }}
     </p>
     <v-divider></v-divider>
     <v-row class="mx-0 mb-10">
         <v-col cols="12" md="8">
-            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cart }}</p>
+            <p class="text-center cart__text__title">{{ homeApp[lang].cartPage.cart }}</p>
             <v-sheet>
                 <v-form ref="form">
                     <v-table height="550">
                         <thead>
                             <tr>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.image }}</th>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.figure }}</th>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.price }}</th>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.quantity }}</th>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.totalPrice }}</th>
-                                <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.action }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.image }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.figure }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.price }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.quantity }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.totalPrice }}</th>
+                                <th class="text-center text__bold">{{ homeApp[lang].cartPage.cartField.action }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr cols v-if="!props.cart || props.cart.length == 0" class="align__center">
-                                <td colspan="100">{{ homeApp[getcurrentLanguge()].noData }}</td>
+                                <td colspan="100">{{ homeApp[lang].noData }}</td>
                             </tr>
                             <tr v-for="(item, index) in props.cart">
                                 <td class="text-center py-1">
@@ -59,14 +59,14 @@
             </v-sheet>
         </v-col>
         <v-col cols="12" md="4">
-            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cartInfor }}</p>
+            <p class="text-center cart__text__title">{{ homeApp[lang].cartPage.cartInfor }}</p>
             <v-list>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalWeight }} : {{ total_weight || 0 }}g</v-list-item>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalQuantity }} : {{ total_quantity || 0 }}</v-list-item>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalPrice }} : {{ formatVND(total_price || 0)}}</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[lang].cartPage.totalWeight }} : {{ total_weight || 0 }}g</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[lang].cartPage.totalQuantity }} : {{ total_quantity || 0 }}</v-list-item>
+                <v-list-item class="cart__infor__product">{{ homeApp[lang].cartPage.totalPrice }} : {{ formatVND(total_price || 0)}}</v-list-item>
             </v-list>
 
-            <v-btn color="success" variant="outlined" @click="perchar">{{ homeApp[getcurrentLanguge()].cartPage.btn.perchar }}</v-btn>
+            <v-btn color="success" variant="outlined" @click="perchar">{{ homeApp[lang].cartPage.btn.perchar }}</v-btn>
         </v-col>
     </v-row>
 </template>
@@ -82,6 +82,7 @@ import { QUANTITY_SIZE } from '@/const/validate'
 import homeApp from '@/i18n/home';
 import getcurrentLanguge from '@/util/locale';
 const form = ref(null);
+let lang = "en";
 const store = cartStore();
 const cart = ref(null);
 const props = defineProps({
@@ -98,12 +99,12 @@ const emits = defineEmits({
 const quantityValidation = [
     (value) => {
         if (value) return true;
-        return homeApp[getcurrentLanguge()].quantityValidate.quantityNotNull;
+        return homeApp[lang].quantityValidate.quantityNotNull;
     },
     (value) => {
-        if (isNaN(value)) return homeApp[getcurrentLanguge()].quantityValidate.quantitySize;
+        if (isNaN(value)) return homeApp[lang].quantityValidate.quantitySize;
         else if (value <= 0 || value > QUANTITY_SIZE) {
-            return homeApp[getcurrentLanguge()].quantityValidate.quantitySize;
+            return homeApp[lang].quantityValidate.quantitySize;
         }
         return true;
     },
@@ -149,6 +150,7 @@ const updateQuantity = (id, quantity, index) => {
     }
 }
 onMounted(async () => {
+    lang = getcurrentLanguge();
     // await getCart(store.getCart).then(resp => {
     //     if (resp.status >= 200 || resp.status < 300) {
     //         cart.value = resp.data;

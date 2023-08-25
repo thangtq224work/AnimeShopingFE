@@ -21,7 +21,7 @@
                                     variant="underlined" id="id2"></v-text-field>
                             </v-col>
                             <v-col cols="12" class="px-8">
-                                <RouterLink to="/" class="login__page__forget__password">Forget password?</RouterLink>
+                                <RouterLink :to="{name:'register'}" class="login__page__forget__password">Forget password?</RouterLink>
                             </v-col>
                             <v-col cols="12" class="px-7">
                                 <v-btn block color="blue" text-color="black" class="rounded-xl" type="submit" @click="loginHandler">{{

@@ -80,7 +80,7 @@
       </v-card-title>
 
       <v-card-text>
-        <v-form ref="form">
+        <v-form ref="form" @submit.prevent>
           <v-row>
             <v-col cols="12">
               <v-text-field v-model="currentItem.name" :rules="nameValidate"
@@ -93,18 +93,19 @@
               </v-radio-group>
             </v-col>
           </v-row>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue-darken-1" variant="text" @click="close">
+              {{ app[getcurrentLanguge()].btn.cancel }}
+            </v-btn>
+            <v-btn color="blue-darken-1" type="submit" variant="text" @click="saveToDb">
+              {{ app[getcurrentLanguge()].btn.confirm }}
+            </v-btn>
+          </v-card-actions>
+
         </v-form>
       </v-card-text>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="close">
-          {{ app[getcurrentLanguge()].btn.cancel }}
-        </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="saveToDb">
-          {{ app[getcurrentLanguge()].btn.confirm }}
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -127,18 +128,18 @@ let formTitle = ref('');
 let currentItem = ref({
   id: "",
   name: "",
-  status:null
+  status: null
 })
 let defaultItem = {
   id: "",
   name: "",
-  status:true
+  status: true
 };
 const nameValidate = [
-    (value)=>{
-        if(value) return true;
-        return app[getcurrentLanguge()].validate.material.materialNotNull;
-    }
+  (value) => {
+    if (value) return true;
+    return app[getcurrentLanguge()].validate.material.materialNotNull;
+  }
 ]
 const statusValidate = [
   (value) => {
@@ -177,15 +178,15 @@ const infor = (id) => {
 }
 const newHandler = () => {
   formTitle.value = app[getcurrentLanguge()].property.material.action.new;
-  currentItem.value = Object.assign({},defaultItem);
+  currentItem.value = Object.assign({}, defaultItem);
   dialog.value = true;
 }
 
 const saveToDb = async () => {
-  const {valid} = await form.value.validate();
-    if(!valid){
-        return
-    } 
+  const { valid } = await form.value.validate();
+  if (!valid) {
+    return
+  }
   if (currentItem.value.id) {
     await update(currentItem.value).then(resp => {
       if (resp.status >= 200 && resp.status < 300) {

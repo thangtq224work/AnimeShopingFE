@@ -7,6 +7,16 @@ const Axios = axios.create({
 const login = (login) => {
     return Axios.post('/auth/login', login);
 }
+const register = (register) => {
+    return Axios.post('/auth/register', register);
+}
+const confirm = (token) => {
+    return Axios.get('/auth/register/confirm', {
+        params:{
+            "token":token
+        }
+    });
+}
 
 const refresh = (token) => {
     return Axios.post('/auth/refresh', token);
@@ -19,4 +29,4 @@ const getUsername = (token) => {
 const getRole = (token) => {
     return Axios.post('/auth/get-role', token);
 }
-export { login, refresh, getUsername,getRole };
+export { login, refresh, getUsername,getRole,register ,confirm };

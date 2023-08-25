@@ -16,7 +16,6 @@ const update = (obj)=>{
     return axios.put(`/product/update`,obj);
 }
 const uploadImage = (id,images) =>{
-    console.log(id,images);
     let data = new FormData();
     images.map((value)=>{
         data.append("images",value);

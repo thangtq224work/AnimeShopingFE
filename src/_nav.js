@@ -8,8 +8,13 @@ const nav = {
         },
         nav_content: [
             {
+                name: "Statistical",
+                icon: " mdi-chart-bar",
+                path: "/statistical",
+            },
+            {
                 name: "Product property",
-                icon: "mdi-alert",
+                icon: "mdi-tag-multiple",
                 path: "/property",
                 children:[
                     {
@@ -39,7 +44,7 @@ const nav = {
             },
             {
                 name: "Product",
-                icon: "mdi-alarm",
+                icon: "mdi-toolbox",
                 path: "/product",
             },
             {
@@ -49,7 +54,7 @@ const nav = {
             },
             {
                 name: "Order",
-                icon: "mdi-account-circle",
+                icon: "mdi-clipboard-list-outline",
                 path: "/order"
             },
         ],
@@ -67,8 +72,13 @@ const nav = {
         },
         nav_content: [
             {
+                name: "Thống kê",
+                icon: " mdi-chart-bar",
+                path: "/statistical",
+            },
+            {
                 name: "Thuộc tính sản phẩm",
-                icon: "mdi-alert",
+                icon: "mdi-tag-multiple",
                 path: "/thuoc-tinh",
                 children:[
                     {
@@ -98,7 +108,7 @@ const nav = {
             },
             {
                 name: "Sản phẩm",
-                icon: "mdi-alarm",
+                icon: "mdi-toolbox",
                 path: "/san-pham",
             },
             {
@@ -108,7 +118,7 @@ const nav = {
             },
             {
                 name: "Hóa đơn",
-                icon: "mdi-account-circle",
+                icon: "mdi-clipboard-list-outline",
                 path: "/hoa-don"
             },
         ],

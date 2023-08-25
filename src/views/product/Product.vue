@@ -194,7 +194,6 @@ const initialize = () => {
 }
 const getData = (p, ps) => {
     getAll({ 'page': p, 'size': ps }).then((resp) => {
-        console.log((resp.status >= 200 && resp.status < 300));
         if (resp.status >= 200 && resp.status < 300) {
             products.value = resp.data;
         } else {
@@ -293,7 +292,6 @@ const logger = () => {
     })
 }
 const close = () => {
-    console.log(stores.getUser);
     dialog.value = false;
 }
 const open = () => {

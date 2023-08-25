@@ -96,7 +96,7 @@
         </v-row> -->
         <v-row class="mx-10 mt-3">
             <v-col cols="12" md="12" sm="12" xs="12">
-                <vue-awesome-paginate class="d-flex justify-center" v-if="productData != null"
+                <vue-awesome-paginate class="d-flex justify-center" v-if="productData != null && productData?.data.length > 0"
                     :total-items="productData.totalRecords || 0" :items-per-page="productData.pageSize || 1"
                     :max-pages-shown="5" v-model="page" :on-click="onClickHandler" />
             </v-col>

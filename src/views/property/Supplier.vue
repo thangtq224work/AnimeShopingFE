@@ -80,7 +80,7 @@
       </v-card-title>
 
       <v-card-text>
-        <v-form ref="form">
+        <v-form ref="form" @submit.prevent>
           <v-row>
             <v-col cols="12">
               <v-text-field v-model="currentItem.name" :rules="nameValidate"
@@ -93,18 +93,17 @@
               </v-radio-group>
             </v-col>
           </v-row>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue-darken-1" variant="text" @click="close">
+              {{ app[getcurrentLanguge()].btn.cancel }}
+            </v-btn>
+            <v-btn color="blue-darken-1" type="submit" variant="text" @click="saveToDb">
+              {{ app[getcurrentLanguge()].btn.confirm }}
+            </v-btn>
+          </v-card-actions>
         </v-form>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="close">
-          {{ app[getcurrentLanguge()].btn.cancel }}
-        </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="saveToDb">
-          {{ app[getcurrentLanguge()].btn.confirm }}
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

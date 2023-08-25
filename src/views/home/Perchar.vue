@@ -22,7 +22,7 @@
                         </v-col>
                         <v-col cols="12">
                             <v-text-field variant="outlined"
-                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.address" v-model="orderData.address" :suffix="(!province?'':province.ProvinceName) + ', ' + (!district?'':district.DistrictName) + ', ' + (!ward?'':ward.WardName)"
+                                :label="homeApp[getcurrentLanguge()].cartPage.userInfor.address" v-model="orderData.address1" :suffix="(!province?'':province.ProvinceName) + ', ' + (!district?'':district.DistrictName) + ', ' + (!ward?'':ward.WardName)"
                                 :rules="addressValidate"></v-text-field>
                         </v-col>
                         <v-col cols="4">
@@ -301,7 +301,7 @@ const confirm = async () => {
     }
     orderData.value.userId = await auth.getUser(); 
     orderData.value.shippingFee = shippingFee.value.total;
-    orderData.value.address = `${orderData.value.address} ,${province.value.ProvinceName} ,${district.value.DistrictName}, ${ward.value.WardName}`;
+    orderData.value.address = `${orderData.value.address1} ,${province.value.ProvinceName} ,${district.value.DistrictName}, ${ward.value.WardName}`;
     orderData.value.product = JSON.parse(JSON.stringify(props.cart));
     orderData.value.addressCode = `${province.value.ProvinceID},${district.value.DistrictID},${ward.value.WardCode}`
     console.log(orderData.value);
