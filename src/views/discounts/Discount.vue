@@ -114,7 +114,7 @@
                 <!-- <h2 class="v-col-12 text-center">Product</h2> -->
 
                 <VCol class="d-flex">
-                    <v-btn class="me-auto" color="success" @click="newHandler">Tạo mới</v-btn>
+                    <v-btn class="me-auto" color="success" @click="newHandler">{{ app[getcurrentLanguge()].btn.new }}</v-btn>
                 </VCol>
             </VRow>
             <VRow class="ma-0">

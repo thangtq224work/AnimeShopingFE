@@ -118,6 +118,10 @@ import { emailPattern, phonePattern } from '@/const/validate'
 import { order } from '@/services/orderSerivce';
 import { useToast } from 'vue-toastification';
 import authStore from '@/stores/auth';
+import cartStore from '@/stores/cart';
+import router from '@/router';
+import { useRouter } from 'vue-router';
+const router_page = useRouter();
 const toast = useToast();
 const auth = authStore();
 const form = ref(null);
@@ -133,6 +137,7 @@ const serviceShipping = ref([]);
 const service = ref(null);
 const description = ref(null);
 const orderData = ref({});
+const cart = cartStore();
 const props = defineProps({
     cart: {
         type: Object,
@@ -308,6 +313,8 @@ const confirm = async () => {
     await order(orderData.value).then((resp)=>{
         if(resp.data.code >=200 && resp.data.code <300){
             toast.success(homeApp[getcurrentLanguge()].cartPage.orderAction.orderSuccess);
+            router_page.push({name:"contact"});
+            cart.clearCart();
         }else{
             toast.warning(homeApp[getcurrentLanguge()].cartPage.orderAction.orderFaild);
         }

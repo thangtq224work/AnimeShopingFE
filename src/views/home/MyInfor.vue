@@ -1,10 +1,19 @@
 <template>
     <v-row class="mx-0 mb-10">
+        <v-col cols="12" md="3">
+            <v-form class="mt-10">
+                <VueDatePicker :enable-time-picker="false" class="mt-4" v-model="filter.from" placeholder="from">
+                </VueDatePicker>
+                <VueDatePicker :enable-time-picker="false" class="mt-4" v-model="filter.to" placeholder="to">
+                </VueDatePicker>
+                <v-btn class="mt-4" color="primary" @click="getData">Apply</v-btn>
+            </v-form>
+        </v-col>
         <v-col cols="12" md="9">
-            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cart }}</p>
+            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].order.name }}</p>
             <v-sheet>
                 <v-form ref="form">
-                    <v-table height="550">
+                    <v-table>
                         <thead>
                             <!-- <tr>
                                 <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.image }}</th>
@@ -15,7 +24,7 @@
                                 <th class="text-center text__bold">{{ homeApp[getcurrentLanguge()].cartPage.cartField.action }}</th>
                             </tr> -->
                             <tr>
-                                <th class="text-center text__bold">STT</th>
+                                <!-- <th width="30px" class="text-center text__bold">STT</th> -->
                                 <th class="text-center text__bold">Mã HD</th>
                                 <th class="text-center text__bold">Ngày Đặt</th>
                                 <th class="text-center text__bold">Tống đơn hàng</th>
@@ -30,8 +39,8 @@
                                     no-data
                                 </td>
                             </tr>
-                            <tr v-else v-for="(item, index) in order">
-                                <td class="text-center">{{ index }}</td>
+                            <tr v-else v-for="(item, index) in order.data">
+                                <!-- <td width="30px" class="text-center">{{ index }}</td> -->
                                 <td class="text-center">{{ item.orderCode }}</td>
                                 <td class="text-center">{{ formatDate(item.createAt) }}</td>
                                 <td class="text-center">{{ formatVND(item.totalPrice + item.shippingFee | 0) }}</td>
@@ -39,71 +48,58 @@
                                 <td class="text-center">{{ status.get(item.status) }}</td>
                                 <td class="text-center">
                                     <v-icon @click="paymentHandler(item.id)"
-                                        v-if="item.totalPrice + item.shippingFee > item.customerMoney"
+                                        v-if="item.totalPrice + item.shippingFee > item.customerMoney && (item.status == orderStatus.SHIPPING || item.status == orderStatus.WAITING_SHIPPING)"
                                         icon="mdi-credit-card-outline" variant="text"></v-icon>
                                     <v-btn @click="detail(item.id)" color="info">Chi tiết</v-btn>
-                                    <v-btn @click="cancelOrder(item.id)" color="red">Hủy đơn </v-btn>
+                                    <v-btn v-if="item.status != orderStatus.CANCEL" @click="cancelOrder(item.id)"
+                                        color="red">Hủy đơn </v-btn>
                                 </td>
                             </tr>
-
-                            <!-- <tr cols v-if="!props.cart || props.cart.length == 0" class="align__center">
-                                <td colspan="100">{{ homeApp[getcurrentLanguge()].noData }}</td>
-                            </tr>
-                            <tr v-for="(item, index) in props.cart">
-                                <td class="text-center py-1">
-                                    <v-img :src='item.images?.length != 0 ? item.images[0].url : NoImage' :title="item.name"
-                                        style="height: 100px; width: 100%;">
-                                    </v-img>
-                                </td>
-                                <td class="">
-                                    <div>
-                                        <v-list>
-                                            <v-list-item class="cart__infor__name">{{ item.name }}</v-list-item>
-                                            <v-list-item class="cart__infor__weight">{{ item.weight }}g</v-list-item>
-                                            <v-list-item>{{ item.category.name }}</v-list-item>
-                                        </v-list>
-                                    </div>
-                                </td>
-                                <td class="text-center">{{ formatVND(item.priceSell) }}</td>
-                                <td class="text-center">
-                                    <v-text-field v-model="item.quantity" type="number" style="width: 100px;"
-                                        @update:model-value="updateQuantity(item.id, item.quantity, index)" min="1" max="10"
-                                        :rules="quantityValidation"></v-text-field>
-                                </td>
-                                <td class="text-center">{{ formatVND(item.quantity * item.priceSell) }}</td>
-                                <td class="text-center">
-                                    <v-btn prepend-icon="mdi-trash-can-outline" variant="text"
-                                        @click="removeFromCart(item.id, index)"></v-btn>
-                                </td>
-                            </tr> -->
                         </tbody>
+                        <v-container v-if="order != null" class="ms-4">
+                            <VRow class="mx-0 align-center" v-if="order?.length != 0">
+                                <VCol cols="12" md="6" sm="12" xs="12">
+                                    <vue-awesome-paginate class="d-flex justify-center" v-if="order != null"
+                                        :total-items="order.totalRecords || 0" :items-per-page="order.pageSize || 1"
+                                        :max-pages-shown="5" v-model="filter.page" :on-click="getData" />
+                                </VCol>
+                                <VCol cols="6" md="4" sm="6" class="d-flex justify-end">
+                                    <span v-if="order != null" class="current_page_message">{{
+                                        (order?.beginIndex + 1) + " - " + (order?.endIndex) + " / " +
+                                        (order?.totalRecords) }}
+                                    </span>
+                                </VCol>
+                                <!-- <VCol cols="6" md="2" sm="6">
+                                    <VSelect outlined :items="[5, 10, 20, 30]" @update:model-value="logger"
+                                        v-model="pageSize" />
+                                </VCol> -->
+
+                            </VRow>
+                        </v-container>
                     </v-table>
                 </v-form>
             </v-sheet>
         </v-col>
-        <!-- <v-col cols="12" md="4">
-            <p class="text-center cart__text__title">{{ homeApp[getcurrentLanguge()].cartPage.cartInfor }}</p>
-            <v-list>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalWeight }} : {{ total_weight || 0 }}g</v-list-item>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalQuantity }} : {{ total_quantity || 0 }}</v-list-item>
-                <v-list-item class="cart__infor__product">{{ homeApp[getcurrentLanguge()].cartPage.totalPrice }} : {{ formatVND(total_price || 0)}}</v-list-item>
-            </v-list>
-
-            <v-btn color="success" variant="outlined" @click="perchar">{{ homeApp[getcurrentLanguge()].cartPage.btn.perchar }}</v-btn>
-        </v-col> -->
     </v-row>
 </template>
 <script setup>
 import homeApp from '@/i18n/home';
 import getcurrentLanguge from '@/util/locale';
 import { formatVND } from '@/util/formatVND';
-import { formatDate } from '@/util/dateformat';
+import { formatDate, formatDateV4 } from '@/util/dateformat';
 import { ref } from 'vue';
-import { getOrder, payment ,refund } from '@/services/userService';
+import { getOrder, payment, refund } from '@/services/userService';
 import { onMounted } from 'vue';
 import app from '@/i18n/dashboard';
 import { useRouter } from 'vue-router';
+import orderStatus from '@/const/orderStatus'
 const route = useRouter();
+const filter = ref({
+    from: null,
+    to: null,
+    page:1,
+    size:3
+});
 let tabs = app[getcurrentLanguge()].order.tabs;
 const status = ref(new Map());
 const order = ref([]);
@@ -122,21 +118,21 @@ const detail = (id) => {
     route.push({ name: "contactId", params: { "id": id } });
 }
 const cancelOrder = async (id) => {
-    await refund(id).then(resp=>{
+    await refund(id).then(resp => {
         if (resp.data.code >= 200 && resp.data.code < 300) {
             if (resp.data.data.code == "00") {
                 url = resp.data.data.data;
             }
         }
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err);
     })
 }
-onMounted(async () => {
-    await tabs.forEach(i => {
-        status.value.set(i.value, i.status);
-    });
-    await getOrder().then((resp) => {
+const getData = async () => {
+    filter.value.from = formatDateV4(filter.value.from || null);
+    filter.value.to = formatDateV4(filter.value.to || null);
+
+    await getOrder(filter.value).then((resp) => {
         if (resp.data.code >= 200 && resp.data.code < 300) {
             order.value = resp.data.data;
         } else {
@@ -145,5 +141,11 @@ onMounted(async () => {
     }).catch((err) => {
         console.log(err);
     })
+}
+onMounted(async () => {
+    await tabs.forEach(i => {
+        status.value.set(i.value, i.status);
+    });
+    await getData();
 })
 </script>

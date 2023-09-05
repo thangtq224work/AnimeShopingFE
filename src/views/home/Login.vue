@@ -21,16 +21,16 @@
                                     variant="underlined" id="id2"></v-text-field>
                             </v-col>
                             <v-col cols="12" class="px-8">
-                                <RouterLink :to="{name:'register'}" class="login__page__forget__password">Forget password?</RouterLink>
+                                <RouterLink :to="{name:'forgetPassword'}" class="login__page__forget__password">{{homeApp[getcurrentLanguge()].auth.forgetPassword}} ?</RouterLink>
                             </v-col>
                             <v-col cols="12" class="px-7">
                                 <v-btn block color="blue" text-color="black" class="rounded-xl" type="submit" @click="loginHandler">{{
                                     homeApp[getcurrentLanguge()].auth.login }}</v-btn>
                             </v-col>
                             <v-col cols="12" class="px-8 d-flex justify-center">
-                                <RouterLink to="/" class="login__page__forget__password me-4">Forget password</RouterLink>
-                                <v-divider vertical class="border-opacity-75"></v-divider>
-                                <RouterLink to="/" class="login__page__forget__password ms-4">Forget password</RouterLink>
+                                <RouterLink :to="{name:'register'}" class="login__page__register me-4">{{ homeApp[getcurrentLanguge()].auth.register }}</RouterLink>
+                                <!-- <v-divider vertical class="border-opacity-75"></v-divider>
+                                <RouterLink to="/" class="login__page__forget__password ms-4">Forget password</RouterLink> -->
                             </v-col>
                         </v-row>
                     </v-form>
@@ -76,6 +76,7 @@ const loginHandler = async () => {
         if (resp.data.code >= 200 && resp.data.code < 300) {
             setCookie('access_token', resp.data.data.access_token, resp.data.data.access_token_expired);
             setCookie('refresh_token', resp.data.data.refresh_token, resp.data.data.refresh_token_expired);
+            setCookie('_user', resp.data.data.username, resp.data.data.access_token_expired);
             auth.setUser(loginData.value.username,resp.data.data.access_token_expired);
             auth.setUserRole(resp.data.data.role);
             const returnUrl = route.query['returnUrl'];
@@ -108,6 +109,12 @@ const loginHandler = async () => {
     font-size: 1rem;
     text-decoration: none;
     color: rgb(133, 133, 133, 0.8);
+    font-family: 'Roboto', sans-serif;
+}
+.login__page__register{
+    font-size: 1rem;
+    /* text-decoration: none; */
+    color: rgb(26, 24, 24);
     font-family: 'Roboto', sans-serif;
 }
 

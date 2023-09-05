@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <v-btn color="success" class="ma-5 my-3" @click="router.go(-1)">Quay lại</v-btn>
+        <v-btn color="success" class="ma-5 my-3" @click="router.go(-1)">{{ app[getcurrentLanguge()].back }}</v-btn>
         <v-card class="ma-5" elevation="4">
             <v-card-title>
                 <p class="text-center my-5 text-info font-weight-bold text-h5">
@@ -76,16 +76,16 @@
                             {{ app[getcurrentLanguge()].discount.attribute.name }}
                         </th>
                         <th class="text-center">
-                            {{ app[getcurrentLanguge()].discount.attribute.id }}
+                            {{ app[getcurrentLanguge()].discount.attribute.category }}
                         </th>
                         <th class="text-center">
-                            Nhà cung cấp
-                        </th>
-                        <th class="text-center">
-                            Series
+                            {{ app[getcurrentLanguge()].discount.attribute.supplier }}
                         </th>
                         <th class="text-center">
                             {{ app[getcurrentLanguge()].discount.attribute.orginalPrice }}
+                        </th>
+                        <th class="text-center">
+                            {{ app[getcurrentLanguge()].discount.attribute.price }}
                         </th>
                         <th class="text-center">
                             {{ app[getcurrentLanguge()].discount.attribute.priceSell }}
@@ -111,10 +111,10 @@
                             {{ item.product.categoryId?.name }}
                         </td>
                         <td class="text-center">
-                            {{ item.product.manufacturerID?.username }}
+                            {{ item.product.manufacturerID?.name }}
                         </td>
                         <td class="text-center">
-                            {{ item.product.seriesID?.name }}
+                            {{ formatVND(item.product.originalPrice) }}
                         </td>
                         <td class="text-center">
                             {{ formatVND(item.product.price) }}

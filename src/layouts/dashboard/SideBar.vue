@@ -1,8 +1,8 @@
 <template>
     <v-list-item height="65">
       <div class="d-flex align-center">
-        <v-img src="@/assets/logo.png" height="50"></v-img>
-        <span class="">Anime shoping</span>
+        <v-img src="@/assets/download.jpeg" height="50"></v-img>
+        <!-- <span class="">Anime shoping</span> -->
       </div>
     </v-list-item>
     <v-divider></v-divider>

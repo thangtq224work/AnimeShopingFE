@@ -1,6 +1,6 @@
 import axios from '@/router/axios.js'
-const getOrder = async () => {
-    return axios.post('/user/order');
+const getOrder = async (p) => {
+    return axios.get('/user/order',{params:p});
 }
 
 const getOrderById = async (id) => {

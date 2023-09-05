@@ -3,6 +3,7 @@ import status from "@/const/orderStatus";
 const app = {
     en: {
         lang: "English",
+        back:"Back",
         noData: "No-data",
         btn: {
             new: "New",
@@ -138,7 +139,10 @@ const app = {
                 action: "Action",
                 description: "Description",
                 orginalPrice: "Orginal price",
+                price: "Price",
                 priceSell: "Price sell",
+                category: "Seri",
+                supplier: "Supplier",
 
             },
             action: {
@@ -222,7 +226,8 @@ const app = {
                 action: "Action",
                 product: {
                     name: "Name",
-                    price: "Orginal price",
+                    originalPrice: "Orginal price",
+                    price: "Price ",
                     priceSell: "Price sell",
                     width: "Width",
                     height: "Height",
@@ -319,6 +324,7 @@ const app = {
     },
     vi: {
         lang: "Tiếng việt",
+        back:"Quay lại",
         noData: "Không có dữ liệu",
         btn: {
             new: "Tạo mới",
@@ -455,8 +461,12 @@ const app = {
                 amount: "Mức giảm",
                 action: "Hành động",
                 description: "Mô tả",
+                category: "Seri",
+                supplier: "Nhà cung cấp",
+                description: "Mô tả",
                 orginalPrice: "Giá gốc",
-                priceSell: "Giá bán"
+                priceSell: "Giá bán",
+                price: "Giá ",
             },
             action: {
                 detailBtn: "Chi tiết",

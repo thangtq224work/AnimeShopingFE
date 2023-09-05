@@ -13,6 +13,12 @@ const navBar = {
                         requireLogin:false
                     },
                     {
+                        name: "Change password",
+                        icon: "",
+                        path: "/change-password",
+                        requireLogin:true
+                    },
+                    {
                         name: "Logout",
                         icon: "2",
                         path: "/logout",
@@ -48,9 +54,9 @@ const navBar = {
                 // ]
             },
             {
-                name: "About me",
+                name: "Order",
                 icon: "mdi-cart-outline",
-                path: "/about-me",
+                path: "/order",
                 requireManagerRole:false
             },
             {
@@ -79,6 +85,12 @@ const navBar = {
                         icon: "",
                         path: "/dang-nhap",
                         requireLogin:false
+                    },
+                    {
+                        name: "Đổi mật khẩu",
+                        icon: "",
+                        path: "/doi-mat-khau",
+                        requireLogin:true
                     },
                     {
                         name: "Đăng xuất",
@@ -116,9 +128,9 @@ const navBar = {
                 // ]
             },
             {
-                name: "Thông tin",
+                name: "Đơn hàng",
                 icon: "mdi-cart-outline",
-                path: "/thong-tin",
+                path: "/don-hang",
                 requireManagerRole:false
             },
             {

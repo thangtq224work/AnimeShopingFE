@@ -4,8 +4,8 @@
             <v-col>
                 <v-icon icon="mdi-format-list-bulleted" class="btn_list ms-5" @click="toggle"></v-icon>
             </v-col>
-            <v-col>
-                <v-btn id="menu-activator" color="primary" variant="outlined">
+            <v-col class="d-flex justify-end">
+                <v-btn class="me-4" id="menu-activator" color="primary" variant="outlined" >
                     {{ app[getcurrentLanguge()].lang }}
                 </v-btn>
 

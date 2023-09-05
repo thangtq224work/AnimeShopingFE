@@ -18,20 +18,22 @@ import "vue-awesome-paginate/dist/style.css";
 import mitt from 'mitt';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import VueApexCharts from "vue3-apexcharts";
 
 const pinia = createPinia()
 const emitter = mitt()
 const app = createApp(App)
-app.provide('emitter',emitter)
+app.provide('emitter', emitter)
 app.use(pinia)
 app.use(VueAwesomePaginate)
 app.use(Toast, {
-    transition: "Vue-Toastification__bounce",
-    maxToasts: 20,
-    pauseOnHover: false,
-    newestOnTop: true
-  });
-  app.component('VueDatePicker', VueDatePicker);
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 20,
+  pauseOnHover: false,
+  newestOnTop: true
+});
+app.use(VueApexCharts)
+app.component('VueDatePicker', VueDatePicker);
 
 registerPlugins(app)
 

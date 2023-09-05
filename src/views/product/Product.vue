@@ -193,7 +193,7 @@ const initialize = () => {
     getData(0, pageSize.value);
 }
 const getData = (p, ps) => {
-    getAll({ 'page': p, 'size': ps }).then((resp) => {
+    getAll({ 'page': p, 'size': ps,'search':filter.value.search,'status':filter.value.status }).then((resp) => {
         if (resp.status >= 200 && resp.status < 300) {
             products.value = resp.data;
         } else {

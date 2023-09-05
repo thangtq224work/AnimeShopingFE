@@ -12,10 +12,20 @@ const register = (register) => {
 }
 const confirm = (token) => {
     return Axios.get('/auth/register/confirm', {
-        params:{
-            "token":token
+        params: {
+            "token": token
         }
     });
+}
+
+const forgetPassword = (forget) => {
+    return Axios.post('/auth/forget-password', forget);
+}
+const forgetPasswordConfirm = (confirm) => {
+    return Axios.post('/auth/confirm-password', confirm);
+}
+const changePassword = (confirm) => {
+    return Axios.post('/auth/change-password', confirm);
 }
 
 const refresh = (token) => {
@@ -29,4 +39,4 @@ const getUsername = (token) => {
 const getRole = (token) => {
     return Axios.post('/auth/get-role', token);
 }
-export { login, refresh, getUsername,getRole,register ,confirm };
+export { login, refresh, getUsername, getRole, register, confirm, forgetPassword, forgetPasswordConfirm,changePassword };

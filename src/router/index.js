@@ -17,6 +17,8 @@ import MyInfor from '@/views/home/MyInfor.vue'
 import MyInforById from '@/views/home/MyInforById.vue'
 import Register from '@/views/home/Register.vue'
 import RegisterConfirm from '@/views/home/Register.vue'
+import ForgetPassword from '@/views/home/ForgetPassword.vue'
+import ChangePassword from '@/views/home/ChangePassword.vue'
 // let auth = authStore();  // have error
 const routes = [
   {
@@ -44,8 +46,8 @@ const routes = [
         component: HomePage,
       },
       {
-        path: '/about-me',
-        alias: '/thong-tin',
+        path: '/order',
+        alias: '/don-hang',
         meta: { requiresAuth: true },
         name: 'contact',
         component: MyInfor,
@@ -89,19 +91,20 @@ const routes = [
         path: '/statistical',
         alias: ['/quan-ly', '/manager','/thong-ke'],
         name: 'statistical',
+        meta: { authorire: [roles.ADMIN] },
         component: Statistical,
       },
       {
         path: '/discount',
         alias:'/giam-gia',
         name: 'discount',
-        meta: { authorire: [roles.USER] },
+        meta: { authorire: [roles.USER,roles.ADMIN] },
         component: Discount,
       },
       {
         path: '/discount/:id',
         name: 'discount-detail',
-        meta: { authorire: [roles.USER] },
+        meta: { authorire: [roles.USER,,roles.ADMIN] },
         component: DiscountDetail,
       },
       {
@@ -164,6 +167,18 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+  },
+  {
+    alias: "/quen-mat-khau",
+    path: '/forget-password',
+    name: 'forgetPassword',
+    component: ForgetPassword,
+  },
+  {
+    alias: "/doi-mat-khau",
+    path: '/change-password',
+    name: 'changePassword',
+    component: ChangePassword,
   },
   {
     alias: "/dang-ki",
