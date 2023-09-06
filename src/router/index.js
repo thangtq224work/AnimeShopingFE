@@ -19,6 +19,7 @@ import Register from '@/views/home/Register.vue'
 import RegisterConfirm from '@/views/home/Register.vue'
 import ForgetPassword from '@/views/home/ForgetPassword.vue'
 import ChangePassword from '@/views/home/ChangePassword.vue'
+import Employee from '@/views/empleyee/Employee.vue'
 // let auth = authStore();  // have error
 const routes = [
   {
@@ -93,6 +94,14 @@ const routes = [
         name: 'statistical',
         meta: { authorire: [roles.ADMIN] },
         component: Statistical,
+      },
+      {
+        path: '/employee-manager',
+        alias: ['/quan-ly-nhan-vien'],
+        meta: { requiresAuth: true },
+        name: 'employeeManager',
+        meta: { authorire: [roles.ADMIN] },
+        component: Employee,
       },
       {
         path: '/discount',
@@ -207,7 +216,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log("ac");
+  // console.log("ac");
   if (!authStore().isLogin) {
     await authStore().init();
   }

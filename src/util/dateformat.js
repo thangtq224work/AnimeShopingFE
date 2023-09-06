@@ -83,6 +83,24 @@ const formatDateV4 = (date) =>{
     };
     return `${M}/${d}/${y}`
 }
+
+const formatDateV5 = (date) =>{
+    if (date == null || date == '') {
+        return '';
+    }
+    date = new Date(date);
+    let d = date.getDate(),
+        M = date.getMonth() + 1,
+        y = date.getFullYear()
+
+    if (d < 10) {
+        d = "0" + d;
+    };
+    if (M < 10) {
+        M = "0" + M;
+    };
+    return `${y}-${M}-${d}`
+}
 // const formatDate_DDmmYYYYhhMM = (date) =>{
 //     if (date == null || date == '') {
 //         return '';
@@ -103,4 +121,4 @@ const formatDateV4 = (date) =>{
 //     };
 //     return `${d}-${M}-${y} ${H}:${m}:${s}`
 // }
-export {formatDate,formatDateV2,formatDateV3,formatDateV4}
+export {formatDate,formatDateV2,formatDateV3,formatDateV4,formatDateV5}

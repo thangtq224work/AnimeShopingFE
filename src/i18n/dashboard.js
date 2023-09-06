@@ -10,7 +10,8 @@ const app = {
             find: "Find",
             reset: "Reset",
             cancel: "Cancel",
-            confirm: "Confirm"
+            confirm: "Confirm",
+            edit:"Edit"
         },
         property: {
             category: {
@@ -320,6 +321,29 @@ const app = {
                 materialNotNull: "Type of product must not be null",
                 statusNotNull: "Status must not be null"
             }
+        },
+        employee:{
+            action:{
+                new:"New employee",
+                update:"Update employee",
+                
+            },
+            properties:{
+                username:"Username",
+                fullname:"Fullname",
+                email:"Email",
+                password:"Password",
+                phone:"Number phone",
+                birthday:"Birthday",
+                status:"Status",
+                role:""              
+            },
+            validate:{
+                usernameOrEmailUsed:"Username or email already used",
+                createEmployeeSuccess:"Create employee sucessfully",
+                updateEmployeeSuccess:"Update employee sucessfully",
+                
+            }
         }
     },
     vi: {
@@ -331,7 +355,8 @@ const app = {
             find: "Tìm kiếm",
             reset: "Đặt lại",
             cancel: "Hủy bỏ",
-            confirm: "Xác nhận"
+            confirm: "Xác nhận",
+            edit:"Chỉnh sửa"
         },
         property: {
             category: {
@@ -645,6 +670,28 @@ const app = {
             typeProduct: {
                 typeProductNotNull: "Loại sản phẩm không được bỏ trống",
                 statusNotNull: "Trạng thái không được bỏ trống"
+            }
+        },
+        employee:{
+            action:{
+                new:"Tạo mới nhân viên",
+                update:"Cập nhật nhân viên",
+                
+            },
+            properties:{
+                username:"Tên đăng nhập",
+                fullname:"Họ tên",
+                email:"Email",
+                password:"Mật khẩu",
+                phone:"Số điện thoại",
+                birthday:"Ngày sinh",
+                status:"Trạng thái",
+                role:"Vai trò"              
+            },
+            validate:{
+                usernameOrEmailUsed:"Tên đăng nhập hoặc email đã được sử dung",
+                createEmployeeSuccess:"Tạo mới nhân viên thành công",
+                updateEmployeeSuccess:"Cập nhật thông tin thành công",
             }
         }
     }

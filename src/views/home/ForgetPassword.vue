@@ -159,9 +159,9 @@ onMounted(async () => {
     lang.value = getcurrentLanguge();
     messageLogin.value = lang == 'en' ? 'Login' : 'Đăng nhập';
     token.value = route.query.token;
-    if (!!token.value) {
-        console.log("aaaaa");
-    }
+    // if (!!token.value) {
+    //     console.log("aaaaa");
+    // }
 })
 </script>
 <style>

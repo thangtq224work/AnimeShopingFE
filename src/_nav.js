@@ -13,6 +13,11 @@ const nav = {
                 path: "/statistical",
             },
             {
+                name: "Employee manager",
+                icon: "mdi-account-multiple",
+                path: "/employee-manager",
+            },
+            {
                 name: "Product property",
                 icon: "mdi-tag-multiple",
                 path: "/property",
@@ -74,7 +79,12 @@ const nav = {
             {
                 name: "Thống kê",
                 icon: " mdi-chart-bar",
-                path: "/statistical",
+                path: "/thong-ke",
+            },
+            {
+                name: "Quản lý nhân viên",
+                icon: "mdi-account-multiple",
+                path: "/quan-ly-nhan-vien",
             },
             {
                 name: "Thuộc tính sản phẩm",

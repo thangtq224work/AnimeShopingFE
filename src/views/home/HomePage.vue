@@ -157,7 +157,7 @@ const onClickHandler = async () => {
     await getProductData();
 }
 const addToCart = (it) => {
-    console.log(it);
+    // console.log(it);
     const index = cart.getIndexOfProductInCart(it.id);
     if (index >= 0) {
         // let quantity = cart.getCart[index].quantity;

@@ -6,7 +6,7 @@ let tabs = app[getcurrentLanguge()].order.tabs;
 const orderStatus = defineStore("orderSt", () => {
     const status = new Map();
     const getStatus = () =>{
-        console.log();
+        // console.log();
         if(status.size === 0){
             tabs.forEach(i => {
                 status.set(i.value, i.status);
