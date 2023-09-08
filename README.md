@@ -1,4 +1,12 @@
 # base
+<!-- require :docker engine -->
+BE : https://github.com/thangtq224work/AnimeShopingBE
+## How to run 
+<!-- Build image -->
+docker build -t animefe .
+<!-- run image -->
+docker run -p 5000:8000 animefe
+<!-- app will run in host with port : 5000 -->
 
 ## Project setup
 

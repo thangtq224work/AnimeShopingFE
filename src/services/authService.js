@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = 'http://localhost:8080/anime-shop/api/';
+const BASE_URL = import.meta.env.VITE_BE_URL;
+console.log(BASE_URL);
 const Axios = axios.create({
     baseURL: BASE_URL,
     timeout: 5000

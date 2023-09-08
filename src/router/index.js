@@ -154,9 +154,9 @@ const routes = [
       //   component: () => import('@/views/product/ProductDetail.vue')
       // },
       {
-        alias: "/hoa-don",
-        path: '/order',
-        name: 'order',
+        alias: "/quan-ly-hoa-don",
+        path: '/order-manager',
+        name: 'orderAdmin',
         meta: { authorire: [roles.USER, roles.ADMIN], requiresAuth: true },
         component: () => import('@/views/order/Order.vue'),
       },

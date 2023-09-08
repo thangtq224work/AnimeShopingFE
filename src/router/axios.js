@@ -1,8 +1,8 @@
 import axios from "axios";
 import { readCookie, setCookie } from "@/util/cookies";
 import { refresh } from "@/services/authService";
-
-const BASE_URL = 'http://localhost:8080/anime-shop/api/';
+const BASE_URL = import.meta.env.VITE_BE_URL;
+// 'http://localhost:8080/anime-shop/api/';
 const Axios = axios.create({
     baseURL: BASE_URL,
     timeout:7000

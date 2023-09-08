@@ -60,7 +60,7 @@ const nav = {
             {
                 name: "Order",
                 icon: "mdi-clipboard-list-outline",
-                path: "/order"
+                path: "/order-manager"
             },
         ],
         nav_footer: {
@@ -129,7 +129,7 @@ const nav = {
             {
                 name: "Hóa đơn",
                 icon: "mdi-clipboard-list-outline",
-                path: "/hoa-don"
+                path: "/quan-ly-hoa-don"
             },
         ],
         nav_footer: {
